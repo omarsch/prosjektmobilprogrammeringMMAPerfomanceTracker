@@ -157,7 +157,7 @@ public class AddTrainingFragment extends Fragment {
                     showAddedTraining.setText("Du har lagt til Sport:"+ selectedSportString+" Teknikk: "+
                             selectedTechnique.getEditText().getText().toString()+
                             " Tid: "+hours.getEditText().getText().toString()+" timer og "+
-                            minutes.getEditText().getText()+" minutter");
+                            minutes.getEditText().getText()+" minutter ");
                 }
 
 
