@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MMA Performance Tracker</string>
+    <string name="logg_button">Logg</string>
+    <string name="stats_button">Statistikk</string>
+    <string name="maps_button">Maps</string>
+    <string name="notf_button">Notifications</string>
+    <string name="add_button">Legg til trening</string>
+    <string name="home_img">Home Page Image</string>
+    <string name="home_button">Home</string>
+    <string name="floating_action_text">Legg Til Økt</string>
+    <string name="chose_sport">Velg Sport</string>
+    <string name="chose_technique">Velg Teknikk</string>
+    <string name="duration_text">Varighet</string>
+    <string name="hours_text">Timer</string>
+    <string name="minutes_text">Minutter</string>
+    <string name="addTraining_button">Add Training</string>
+    <string name="error_add">Du må legge inn timer eller minutter</string>
+</resources>

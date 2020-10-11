@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ExtraText"
+    android:shape="ring"
+    android:innerRadiusRatio="2.5"
+    android:thickness="10dp"
+    android:useLevel="true">
+
+
+
+    <solid android:color="@color/progressBar"></solid>
+
+</shape>
