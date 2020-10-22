@@ -15,7 +15,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
+import com.example.mmaperfomancetracker.db.Sport;
+import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -48,6 +51,7 @@ public class AddTrainingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportdatabase").allowMainThreadQueries().build();
 
 
         SPORT.clear();
@@ -157,7 +161,7 @@ public class AddTrainingFragment extends Fragment {
                     showAddedTraining.setText("Du har lagt til Sport:"+ selectedSportString+" Teknikk: "+
                             selectedTechnique.getEditText().getText().toString()+
                             " Tid: "+hours.getEditText().getText().toString()+" timer og "+
-                            minutes.getEditText().getText()+" minutter ");
+                            minutes.getEditText().getText()+" minutter "+ db.sportDao().getAll());
                 }
 
 
