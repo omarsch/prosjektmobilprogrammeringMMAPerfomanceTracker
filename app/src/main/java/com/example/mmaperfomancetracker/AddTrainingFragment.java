@@ -54,7 +54,7 @@ public class AddTrainingFragment extends Fragment {
 
 
 
-        db.sportDao().getAll().clear();
+        db.sportDao().getAllSports().clear();
 
         KICKBOXING.clear();
         BOXING.clear();
@@ -69,7 +69,7 @@ public class AddTrainingFragment extends Fragment {
 
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
-        final ArrayAdapter<String> adapterSport= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAll());
+        final ArrayAdapter<String> adapterSport= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
         editTextSport.setAdapter(adapterSport);
 
 
@@ -161,7 +161,7 @@ public class AddTrainingFragment extends Fragment {
                     showAddedTraining.setText("Du har lagt til Sport:"+ selectedSportString+" Teknikk: "+
                             selectedTechnique.getEditText().getText().toString()+
                             " Tid: "+hours.getEditText().getText().toString()+" timer og "+
-                            minutes.getEditText().getText()+" minutter " + db.sportDao().getAll());
+                            minutes.getEditText().getText()+" minutter " + db.sportDao().getAllSportsId().toString());
                 }
 
 

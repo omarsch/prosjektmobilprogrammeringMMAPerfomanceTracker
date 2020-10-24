@@ -10,7 +10,10 @@ import java.util.List;
 public interface SportDao {
 
     @Query("SELECT Sport FROM Sport")
-    List<String> getAll();
+    List<String> getAllSports();
+
+    @Query("SELECT Sport.sid FROM Sport")
+    List<Integer> getAllSportsId();
 
     @Query("DELETE FROM Sport")
     void deleteSports();
