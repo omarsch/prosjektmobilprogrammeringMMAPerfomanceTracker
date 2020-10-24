@@ -39,7 +39,6 @@ public class AddTrainingFragment extends Fragment {
 
     Button addTrainingBtn;
 
-    private static final List<String> SPORT = new ArrayList<String>();
     private static final List<String> KICKBOXING = new ArrayList<String>();
     private static final List<String> BOXING = new ArrayList<String>();
     private static final List<String> GRAPPLING = new ArrayList<String>();
@@ -54,13 +53,14 @@ public class AddTrainingFragment extends Fragment {
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportdatabase").allowMainThreadQueries().build();
 
 
-        SPORT.clear();
+
+        db.sportDao().getAll().clear();
+
         KICKBOXING.clear();
         BOXING.clear();
         GRAPPLING.clear();
         BRYTING.clear();
 
-        Collections.addAll(SPORT,"Kickboxing","Boxing","Grappling","Bryting");
         Collections.addAll(KICKBOXING,"k1","k2","k3","k4");
         Collections.addAll(BOXING,"b1","b2","b3","b4");
         Collections.addAll(GRAPPLING,"g1","g2","g3","g4");
@@ -69,7 +69,7 @@ public class AddTrainingFragment extends Fragment {
 
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
-        final ArrayAdapter<String> adapterSport= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, SPORT);
+        final ArrayAdapter<String> adapterSport= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAll());
         editTextSport.setAdapter(adapterSport);
 
 
@@ -161,7 +161,7 @@ public class AddTrainingFragment extends Fragment {
                     showAddedTraining.setText("Du har lagt til Sport:"+ selectedSportString+" Teknikk: "+
                             selectedTechnique.getEditText().getText().toString()+
                             " Tid: "+hours.getEditText().getText().toString()+" timer og "+
-                            minutes.getEditText().getText()+" minutter "+ db.sportDao().getAll());
+                            minutes.getEditText().getText()+" minutter " + db.sportDao().getAll());
                 }
 
 
