@@ -79,11 +79,10 @@ public class AddTrainingFragment extends Fragment {
 
                 String selectedSportString=selectedSport.getEditText().getText().toString();
 
-
-                for (int i=0;i<=adapterSport.getCount()-1; i++) {
-                    if (adapterSport.getItem(i).toString().equals(db.sportDao().getAllSports().get(i).toString())) {
+                for(int i=0;i<2;i++) {
+                    if (selectedSportString.equals(db.sportDao().getAllSports().get(i).sportName)) {
                         selectedSportList.clear();
-                        selectedSportList.addAll(db.sportDao().getSportsWithTechniques().get(0).techniques);
+                        selectedSportList.addAll(db.sportDao().getSportsWithTechniques().get(i).techniques);
                         techniqueText.setVisibility(View.VISIBLE);
                         editTextTechnique.setVisibility(View.VISIBLE);
                         selectedTechnique.setVisibility(View.VISIBLE);
