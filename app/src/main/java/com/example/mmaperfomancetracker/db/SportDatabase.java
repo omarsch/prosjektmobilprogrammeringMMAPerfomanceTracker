@@ -1,12 +1,13 @@
 package com.example.mmaperfomancetracker.db;
 
-import android.content.Context;
-
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Sport.class}, version = 1)
+import com.example.mmaperfomancetracker.db.tables.Sport;
+import com.example.mmaperfomancetracker.db.tables.SportWithTechniques;
+import com.example.mmaperfomancetracker.db.tables.Technique;
+
+@Database(entities = {Sport.class, Technique.class}, version = 1)
  public abstract class SportDatabase extends RoomDatabase {
 
     public abstract SportDao sportDao();
