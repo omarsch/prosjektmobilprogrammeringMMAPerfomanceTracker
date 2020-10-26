@@ -14,7 +14,7 @@ public class Sport {
 
     @Override
     public String toString(){
-        return sportId +" "+ sportName;
+        return  sportName;
     }
 
 }

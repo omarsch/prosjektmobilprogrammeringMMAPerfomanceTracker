@@ -15,8 +15,8 @@ import java.util.List;
 public interface SportDao {
 
     //Sport Table Queries
-    @Query("SELECT SportName FROM Sport")
-    List<String> getAllSports();
+    @Query("SELECT * FROM Sport")
+    List<Sport> getAllSports();
 
     @Query("SELECT sportId FROM Sport")
     List<Integer> getAllSportsId();
