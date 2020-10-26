@@ -39,7 +39,7 @@ public class AddTrainingFragment extends Fragment {
 
 
     Button addTrainingBtn;
-    private static final List<Technique> selectedSportList=new ArrayList<Technique>();
+    private static final List<Technique> techniqueArrayList=new ArrayList<Technique>();
 
     @Nullable
     @Override
@@ -56,7 +56,7 @@ public class AddTrainingFragment extends Fragment {
 
 
         final AutoCompleteTextView editTextTechnique= view.findViewById(R.id.filled_exposed_dropdown_technique);
-        ArrayAdapter<Technique> adapterTechnique= new ArrayAdapter<Technique>(getContext(), android.R.layout.simple_list_item_1, selectedSportList);
+        ArrayAdapter<Technique> adapterTechnique= new ArrayAdapter<Technique>(getContext(), android.R.layout.simple_list_item_1, techniqueArrayList);
         editTextTechnique.setAdapter(adapterTechnique);
 
 
@@ -71,23 +71,23 @@ public class AddTrainingFragment extends Fragment {
         addTrainingBtn= view.findViewById(R.id.addTraining);
 
         showAddedTraining= view.findViewById(R.id.showAddedTraining);
-
+        
 
         editTextSport.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 String selectedSportString=selectedSport.getEditText().getText().toString();
 
                 for(int i=0;i<2;i++) {
                     if (selectedSportString.equals(db.sportDao().getAllSports().get(i).sportName)) {
-                        selectedSportList.clear();
-                        selectedSportList.addAll(db.sportDao().getSportsWithTechniques().get(i).techniques);
+
+                        techniqueArrayList.clear();
+                        techniqueArrayList.addAll(db.sportDao().getSportsWithTechniques().get(i).techniques);
                         techniqueText.setVisibility(View.VISIBLE);
                         editTextTechnique.setVisibility(View.VISIBLE);
                         selectedTechnique.setVisibility(View.VISIBLE);
-
                     }
+
                 }
 
             }
@@ -121,12 +121,7 @@ public class AddTrainingFragment extends Fragment {
                     mySnackbar.show();
                 }
                 else {
-
-                    if(adapterSport.getItem(0).toString().equals(db.sportDao().getAllSports().get(0).toString())){
-
-                        showAddedTraining.setText(adapterSport.getItem(0).toString());
-
-                    }
+                        showAddedTraining.setText(selectedSportString+" "+selectedTechnique.getEditText().getText().toString());
                 }
 
 
