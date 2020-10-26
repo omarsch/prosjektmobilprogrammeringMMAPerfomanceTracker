@@ -48,7 +48,7 @@ public class AddTrainingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportAndTechniqueDB").allowMainThreadQueries().build();
 
-        
+
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
         final ArrayAdapter<Sport> adapterSport= new ArrayAdapter<Sport>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());

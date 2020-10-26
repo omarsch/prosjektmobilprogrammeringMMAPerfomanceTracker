@@ -16,6 +16,6 @@ public class Technique {
 
     @Override
     public String toString(){
-        return techniqueID +" "+ techniqueName;
+        return techniqueName;
     }
 }
