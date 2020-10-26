@@ -39,12 +39,7 @@ public class AddTrainingFragment extends Fragment {
 
 
     Button addTrainingBtn;
-
-    private static final List<String> KICKBOXING = new ArrayList<String>();
-    private static final List<String> BOXING = new ArrayList<String>();
-    private static final List<String> GRAPPLING = new ArrayList<String>();
-    private static final List<String> BRYTING = new ArrayList<String>();
-    private static final List<String> selectedSportList=new ArrayList<String>();
+    private static final List<Technique> selectedSportList=new ArrayList<Technique>();
 
     @Nullable
     @Override
@@ -53,28 +48,15 @@ public class AddTrainingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportAndTechniqueDB").allowMainThreadQueries().build();
 
-
-
-
-        KICKBOXING.clear();
-        BOXING.clear();
-        GRAPPLING.clear();
-        BRYTING.clear();
-
-        Collections.addAll(KICKBOXING,"k1","k2","k3","k4");
-        Collections.addAll(BOXING,"b1","b2","b3","b4");
-        Collections.addAll(GRAPPLING,"g1","g2","g3","g4");
-        Collections.addAll(BRYTING,"br1","br2","br3","br4");
-
-
+        
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
-        final ArrayAdapter<String> adapterSport= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
+        final ArrayAdapter<Sport> adapterSport= new ArrayAdapter<Sport>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
         editTextSport.setAdapter(adapterSport);
 
 
         final AutoCompleteTextView editTextTechnique= view.findViewById(R.id.filled_exposed_dropdown_technique);
-        ArrayAdapter<String> adapterTechnique= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, selectedSportList);
+        ArrayAdapter<Technique> adapterTechnique= new ArrayAdapter<Technique>(getContext(), android.R.layout.simple_list_item_1, selectedSportList);
         editTextTechnique.setAdapter(adapterTechnique);
 
 
@@ -98,35 +80,17 @@ public class AddTrainingFragment extends Fragment {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
 
 
-                if (selectedSportString.equals("Kickboxing")){
-                    selectedSportList.clear();
-                    selectedSportList.addAll(KICKBOXING);
-                    techniqueText.setVisibility(View.VISIBLE);
-                    editTextTechnique.setVisibility(View.VISIBLE);
-                    selectedTechnique.setVisibility(View.VISIBLE);
+                for (int i=0;i<=adapterSport.getCount()-1; i++) {
+                    if (adapterSport.getItem(i).toString().equals(db.sportDao().getAllSports().get(i).toString())) {
+                        selectedSportList.clear();
+                        selectedSportList.addAll(db.sportDao().getSportsWithTechniques().get(0).techniques);
+                        techniqueText.setVisibility(View.VISIBLE);
+                        editTextTechnique.setVisibility(View.VISIBLE);
+                        selectedTechnique.setVisibility(View.VISIBLE);
 
+                    }
                 }
-                else if(selectedSportString.equals("Boxing")){
-                    selectedSportList.clear();
-                    selectedSportList.addAll(BOXING);
-                    techniqueText.setVisibility(View.VISIBLE);
-                    editTextTechnique.setVisibility(View.VISIBLE);
-                    selectedTechnique.setVisibility(View.VISIBLE);
-                }
-                else if(selectedSportString.equals("Grappling")){
-                    selectedSportList.clear();
-                    selectedSportList.addAll(GRAPPLING);
-                    techniqueText.setVisibility(View.VISIBLE);
-                    editTextTechnique.setVisibility(View.VISIBLE);
-                    selectedTechnique.setVisibility(View.VISIBLE);
-                }
-                else if(selectedSportString.equals("Bryting")){
-                    selectedSportList.clear();
-                    selectedSportList.addAll(BRYTING);
-                    techniqueText.setVisibility(View.VISIBLE);
-                    editTextTechnique.setVisibility(View.VISIBLE);
-                    selectedTechnique.setVisibility(View.VISIBLE);
-                }
+
             }
         });
 
@@ -159,7 +123,11 @@ public class AddTrainingFragment extends Fragment {
                 }
                 else {
 
-                    showAddedTraining.setText(db.sportDao().getSportsWithTechniques().get(0).sport.toString());
+                    if(adapterSport.getItem(0).toString().equals(db.sportDao().getAllSports().get(0).toString())){
+
+                        showAddedTraining.setText(adapterSport.getItem(0).toString());
+
+                    }
                 }
 
 

@@ -19,6 +19,6 @@ public class SportWithTechniques {
 
     @Override
     public String toString(){
-        return sport+ " " + techniques.toString();
+        return techniques.toString();
     }
 }
