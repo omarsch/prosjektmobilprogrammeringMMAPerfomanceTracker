@@ -12,6 +12,11 @@ public class Sport {
 
     public String sportName;
 
+    public Sport(long sportId, String sportName) {
+        this.sportId = sportId;
+        this.sportName = sportName;
+    }
+
     @Override
     public String toString(){
         return  sportName;

@@ -14,6 +14,12 @@ public class Technique {
 
     public String techniqueName;
 
+    public Technique(long techniqueID, long sportTechniqueId, String techniqueName) {
+        this.techniqueID = techniqueID;
+        this.sportTechniqueId = sportTechniqueId;
+        this.techniqueName = techniqueName;
+    }
+
     @Override
     public String toString(){
         return techniqueName;
