@@ -29,14 +29,8 @@ import java.util.List;
 public class AddTrainingFragment extends Fragment {
 
 
-    com.google.android.material.textview.MaterialTextView techniqueText;
-    com.google.android.material.textview.MaterialTextView durationText;
-    com.google.android.material.textview.MaterialTextView showAddedTraining;
-    com.google.android.material.textfield.TextInputLayout selectedSport;
-    com.google.android.material.textfield.TextInputLayout selectedTechnique;
-    com.google.android.material.textfield.TextInputLayout hours;
-    com.google.android.material.textfield.TextInputLayout minutes;
-
+    com.google.android.material.textview.MaterialTextView techniqueText,durationText,showAddedTraining;
+    com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
 
     Button addTrainingBtn;
     private static final List<Technique> techniqueArrayList=new ArrayList<Technique>();
