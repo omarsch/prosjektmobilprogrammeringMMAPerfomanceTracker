@@ -33,7 +33,7 @@ public class AddTrainingFragment extends Fragment {
     com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
 
     Button addTrainingBtn;
-    private static final List<Technique> techniqueArrayList=new ArrayList<Technique>();
+    private static final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
 
     @Nullable
     @Override
@@ -71,7 +71,6 @@ public class AddTrainingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
-
                 for(int i=0;i<2;i++) {
                     if (selectedSportString.equals(db.sportDao().getAllSports().get(i).sportName)) {
 
