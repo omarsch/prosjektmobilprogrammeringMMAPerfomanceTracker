@@ -8,6 +8,7 @@ import androidx.room.Transaction;
 import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.SportWithTechniques;
 import com.example.mmaperfomancetracker.db.tables.Technique;
+import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 
 import java.util.List;
 
@@ -42,5 +43,11 @@ public interface SportDao {
     @Query("SELECT * FROM Sport")
     public List<SportWithTechniques> getSportsWithTechniques();
 
+    //TrainingLog Queries Table
+    @Insert
+    void addLog(TrainingLog trainingLog);
+
+    @Query("SELECT * FROM TrainingLog")
+    List<TrainingLog> getAllTrainingLogs();
 
 }

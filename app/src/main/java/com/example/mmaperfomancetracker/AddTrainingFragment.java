@@ -10,16 +10,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.SportWithTechniques;
 import com.example.mmaperfomancetracker.db.tables.Technique;
+import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -40,8 +44,8 @@ public class AddTrainingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportAndTechniqueDB").allowMainThreadQueries().build();
 
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDatabase").allowMainThreadQueries().build();
 
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
@@ -52,6 +56,7 @@ public class AddTrainingFragment extends Fragment {
         final AutoCompleteTextView editTextTechnique= view.findViewById(R.id.filled_exposed_dropdown_technique);
         ArrayAdapter<Technique> adapterTechnique= new ArrayAdapter<Technique>(getContext(), android.R.layout.simple_list_item_1, techniqueArrayList);
         editTextTechnique.setAdapter(adapterTechnique);
+
 
 
         techniqueText= view.findViewById(R.id.choseTechnique);
@@ -104,7 +109,17 @@ public class AddTrainingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
+                String selectedTechniqueString=selectedTechnique.getEditText().getText().toString();
 
+                if(hours.getEditText().getText().toString().isEmpty()){
+                    hours.getEditText().setText("0");
+                }
+                if(minutes.getEditText().getText().toString().isEmpty()){
+                    minutes.getEditText().setText("0");
+                }
+
+                long selectedTimeHours= Integer.valueOf(hours.getEditText().getText().toString());
+                long selectedTimeMinutes= Integer.valueOf(minutes.getEditText().getText().toString());
 
                 if(hours.getEditText().getText().toString().isEmpty() && minutes.getEditText().getText().toString().isEmpty()){
 
@@ -114,7 +129,15 @@ public class AddTrainingFragment extends Fragment {
                     mySnackbar.show();
                 }
                 else {
-                        showAddedTraining.setText(selectedSportString+" "+selectedTechnique.getEditText().getText().toString());
+
+
+                            TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes);
+
+                            db.sportDao().addLog(trainingLog);
+
+                            showAddedTraining.setText(db.sportDao().getAllTrainingLogs().toString());
+
+
                 }
 
 

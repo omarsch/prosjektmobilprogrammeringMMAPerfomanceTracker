@@ -1,0 +1,116 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "758e38f31bae39dda2b59e140304e2bc",
+    "entities": [
+      {
+        "tableName": "Sport",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sportId` INTEGER NOT NULL, `sportName` TEXT, PRIMARY KEY(`sportId`))",
+        "fields": [
+          {
+            "fieldPath": "sportId",
+            "columnName": "sportId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sportName",
+            "columnName": "sportName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sportId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Technique",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`techniqueID` INTEGER NOT NULL, `sportTechniqueId` INTEGER NOT NULL, `techniqueName` TEXT, PRIMARY KEY(`techniqueID`))",
+        "fields": [
+          {
+            "fieldPath": "techniqueID",
+            "columnName": "techniqueID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sportTechniqueId",
+            "columnName": "sportTechniqueId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "techniqueName",
+            "columnName": "techniqueName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "techniqueID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TrainingLog",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`LogID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sportName` TEXT, `techniqueName` TEXT, `hours` INTEGER NOT NULL, `minutes` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "LogID",
+            "columnName": "LogID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sportName",
+            "columnName": "sportName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "techniqueName",
+            "columnName": "techniqueName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hours",
+            "columnName": "hours",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minutes",
+            "columnName": "minutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "LogID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '758e38f31bae39dda2b59e140304e2bc')"
+    ]
+  }
+}

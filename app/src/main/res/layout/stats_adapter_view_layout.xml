@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="33.3">
+        android:layout_weight="33.3"
+       >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textView2"
