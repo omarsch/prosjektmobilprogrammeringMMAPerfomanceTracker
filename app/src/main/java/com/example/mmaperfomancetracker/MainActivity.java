@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AddTrainingFragment()).commit();
+                        new AddTrainingFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+                            selectedFragment).addToBackStack(null).commit();
                     return true;
                 }
             };

@@ -169,16 +169,8 @@ public class AddTrainingFragment extends Fragment {
 
             }
         });
-        
-        return view;
-    }
 
-    public void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        return view;
     }
 
 }
