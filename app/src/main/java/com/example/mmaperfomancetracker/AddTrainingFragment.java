@@ -12,9 +12,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TableRow;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -26,6 +29,7 @@ import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.security.acl.Owner;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,11 +48,11 @@ public class AddTrainingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
+        getActivity().setTitle(R.string.add_button);
+
 
         final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
-
-
-        final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
 
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
 
@@ -119,7 +123,7 @@ public class AddTrainingFragment extends Fragment {
                 if(hours.getEditText().getText().toString().isEmpty()){
                     hours.getEditText().setText("0");
                 }
-                if(minutes.getEditText().getText().toString().isEmpty()){
+                else if(minutes.getEditText().getText().toString().isEmpty()){
                     minutes.getEditText().setText("0");
                 }
 
@@ -133,14 +137,14 @@ public class AddTrainingFragment extends Fragment {
                 }
 
                 if(!techniqueArrayListString.contains(selectedTechniqueString)){
-                    Snackbar mySnackbar = Snackbar.make(v,"Teknikken du har valgt tilhører ikke sporten du har valgt"
+                    Snackbar mySnackbar = Snackbar.make(v,R.string.error_add_technique
                             ,
                             3000);
                     mySnackbar.show();
                 }
                 else if(hours.getEditText().getText().toString().equals("0") && minutes.getEditText().getText().toString().equals("0")){
 
-                    Snackbar mySnackbar = Snackbar.make(v,"Du må legge til timer eller minutter"
+                    Snackbar mySnackbar = Snackbar.make(v,R.string.error_add_time
                             ,
                             3000);
                     mySnackbar.show();
@@ -154,9 +158,9 @@ public class AddTrainingFragment extends Fragment {
                             String dateAndTime= simpleDateFormat.format(calendar.getTime());
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
-                            db.sportDao().addLog(trainingLog);
+                            //db.sportDao().addLog(trainingLog);
 
-                            showAddedTraining.setText("Treningen er lagt til");
+                            showAddedTraining.setText(R.string.addTraining_confirmation);
 
 
                 }
@@ -165,10 +169,16 @@ public class AddTrainingFragment extends Fragment {
 
             }
         });
-
+        
         return view;
     }
 
-
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
 }

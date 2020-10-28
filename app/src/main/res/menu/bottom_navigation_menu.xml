@@ -5,18 +5,7 @@
         android:enabled="true"
         android:icon="@drawable/homeicon"
         android:title="@string/home_button" />
-    <item
-        android:id="@+id/nav_log"
-        android:enabled="true"
-        android:icon="@drawable/library_books_24px"
-        android:title="@string/logg_button"
-        />
-    <item
-        android:id="@+id/nav_stats"
-        android:enabled="true"
-        android:icon="@drawable/leaderboard_24px"
-        android:title="@string/stats_button"/>
-    <item
+        <item
         android:id="@+id/nav_notif"
         android:enabled="true"
         android:icon="@drawable/notifications_24px"

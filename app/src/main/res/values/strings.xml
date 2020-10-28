@@ -1,18 +1,20 @@
 <resources>
     <string name="app_name">MMA Performance Tracker</string>
     <string name="logg_button">Logg</string>
-    <string name="stats_button">Statistikk</string>
+    <string name="stats_button">Stats</string>
     <string name="maps_button">Maps</string>
     <string name="notf_button">Notifications</string>
-    <string name="add_button">Legg til trening</string>
+    <string name="add_button">Add Training</string>
     <string name="home_img">Home Page Image</string>
     <string name="home_button">Home</string>
-    <string name="floating_action_text">Legg Til Økt</string>
-    <string name="chose_sport">Velg Sport</string>
-    <string name="chose_technique">Velg Teknikk</string>
-    <string name="duration_text">Varighet</string>
-    <string name="hours_text">Timer</string>
-    <string name="minutes_text">Minutter</string>
+    <string name="floating_action_text">Add training</string>
+    <string name="chose_sport">Choose Sport</string>
+    <string name="chose_technique">Choose Technique</string>
+    <string name="duration_text">Duration</string>
+    <string name="hours_text">Hours</string>
+    <string name="minutes_text">Minutes</string>
     <string name="addTraining_button">Add Training</string>
-    <string name="error_add">Du må legge inn timer eller minutter</string>
+    <string name="addTraining_confirmation">The training session is added</string>
+    <string name="error_add_time">You must add hours or minutes</string>
+    <string name="error_add_technique">The technique selected does not contain in the sport selected</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -39,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationListener=
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,12 +55,6 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.nav_home:
                             selectedFragment= new HomePageFragment();
-                            break;
-                        case R.id.nav_log:
-                            selectedFragment= new LogPageFragment();
-                            break;
-                        case R.id.nav_stats:
-                            selectedFragment= new StatsPageFragment();
                             break;
                         case R.id.nav_notif:
                             selectedFragment= new NotificationsPageFragment();

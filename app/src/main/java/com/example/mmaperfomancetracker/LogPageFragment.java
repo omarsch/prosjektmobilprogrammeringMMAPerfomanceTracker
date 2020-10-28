@@ -29,6 +29,7 @@ public class LogPageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_logpage,container,false);
+        getActivity().setTitle(R.string.logg_button);
 
 
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
