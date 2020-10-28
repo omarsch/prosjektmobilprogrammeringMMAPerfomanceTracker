@@ -9,21 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
 import com.example.mmaperfomancetracker.R;
+import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 
 import java.util.List;
 
-public class StatsAdapter extends ArrayAdapter<TrainingLog> {
+public class StatsAdapter extends ArrayAdapter<StatsLog> {
 
-    public StatsAdapter(Context context, List<TrainingLog> trainingLogs){
-        super(context,0, trainingLogs);
+    public StatsAdapter(Context context, List<StatsLog> statsLog){
+        super(context,0, statsLog);
     }
 
 
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        TrainingLog trainingLog=getItem(position);
+        StatsLog statsLog=getItem(position);
 
         if(convertView==null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.stats_adapter_view_layout, parent,false);
@@ -36,9 +37,9 @@ public class StatsAdapter extends ArrayAdapter<TrainingLog> {
         duration= convertView.findViewById(R.id.textView2Stats);
         progressBar= convertView.findViewById(R.id.techniqueProgress);
 
-        long totalMinutes= trainingLog.minutes+(trainingLog.hours*60);
+        long totalMinutes= statsLog.minutes+(statsLog.hours*60);
 
-        sportTechnique.setText(trainingLog.techniqueName);
+        sportTechnique.setText(statsLog.techniqueName);
         duration.setText("Minutes: "+totalMinutes);
         progressBar.setProgress(50);
 

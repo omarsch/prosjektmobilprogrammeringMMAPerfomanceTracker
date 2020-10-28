@@ -1,5 +1,6 @@
 package com.example.mmaperfomancetracker;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,11 @@ public class StatsPageFragment extends Fragment {
 
         listView= view.findViewById(R.id.statsListView);
 
-        StatsAdapter adapter= new StatsAdapter(getContext(), db.sportDao().findTechniqueName("Side Kick"));
+
+
+
+
+        StatsAdapter adapter= new StatsAdapter(getContext(), db.sportDao().sortTechniques());
         listView.setAdapter(adapter);
 
 

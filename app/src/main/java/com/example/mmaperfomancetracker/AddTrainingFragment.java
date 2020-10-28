@@ -158,9 +158,9 @@ public class AddTrainingFragment extends Fragment {
                             String dateAndTime= simpleDateFormat.format(calendar.getTime());
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
-                            //db.sportDao().addLog(trainingLog);
+                            db.sportDao().addLog(trainingLog);
                             ArrayList<String> arrayListTest=new ArrayList<String>();
-                            showAddedTraining.setText(db.sportDao().findTechniqueName("Side Kick").toString());
+                            showAddedTraining.setText("You have added your training");
 
 
                 }

@@ -1,5 +1,6 @@
 package com.example.mmaperfomancetracker.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -7,6 +8,7 @@ import androidx.room.Transaction;
 
 import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.SportWithTechniques;
+import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 
@@ -53,7 +55,7 @@ public interface SportDao {
     @Query("DELETE FROM TrainingLog")
     void deleteFromTrainingLog();
 
-    @Query("SELECT * FROM TrainingLog WHERE techniqueName LIKE :search")
-    List<TrainingLog> findTechniqueName(String search);
+    @Query("SELECT techniqueName,hours,minutes FROM TrainingLog")
+    List<StatsLog> sortTechniques();
 
 }
