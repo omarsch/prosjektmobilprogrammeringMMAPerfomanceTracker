@@ -53,4 +53,7 @@ public interface SportDao {
     @Query("DELETE FROM TrainingLog")
     void deleteFromTrainingLog();
 
+    @Query("SELECT * FROM TrainingLog WHERE techniqueName LIKE :search")
+    List<TrainingLog> findTechniqueName(String search);
+
 }

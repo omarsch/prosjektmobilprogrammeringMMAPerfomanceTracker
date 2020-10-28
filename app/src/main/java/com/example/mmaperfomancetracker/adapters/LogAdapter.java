@@ -1,5 +1,6 @@
 package com.example.mmaperfomancetracker.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ public class LogAdapter extends ArrayAdapter<TrainingLog> {
         super(context,0, trainingLogs);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         TrainingLog trainingLog=getItem(position);
@@ -34,7 +36,7 @@ public class LogAdapter extends ArrayAdapter<TrainingLog> {
 
         sportName.setText(trainingLog.sportName +"\n"+"Added: "+ trainingLog.dateAndTime);
         sportTechnique.setText(("Teknikk: "+String.valueOf(trainingLog.techniqueName)));
-        time.setText(R.string.minutes_text+ ": "+ trainingLog.hours+R.string.minutes_text+": "+ trainingLog.minutes);
+        time.setText("Hours: "+ trainingLog.hours+" Minutes: "+ trainingLog.minutes);
 
         return convertView;
 

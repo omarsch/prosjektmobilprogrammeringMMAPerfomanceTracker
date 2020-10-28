@@ -7,7 +7,7 @@
     android:weightSum="100">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView1Stats"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="TextView1"
@@ -23,7 +23,7 @@
         >
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView2Stats"
             android:text="TextView2"
             android:gravity="right"
             android:paddingRight="10dp"

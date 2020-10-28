@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class LogPageFragment extends Fragment {
 
-    com.google.android.material.textview.MaterialTextView sportId,sport1,sport2;
     ListView listView;
 
 
@@ -32,15 +31,9 @@ public class LogPageFragment extends Fragment {
         getActivity().setTitle(R.string.logg_button);
 
 
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
+        SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
 
-
-
-        sportId= view.findViewById(R.id.textView1);
-        sport1= view.findViewById(R.id.textView2);
-        sport2= view.findViewById(R.id.textView3);
         listView= view.findViewById(R.id.logListView);
-
 
         LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());
         listView.setAdapter(adapter);
