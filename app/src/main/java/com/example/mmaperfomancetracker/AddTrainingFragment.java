@@ -26,8 +26,11 @@ import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class AddTrainingFragment extends Fragment {
@@ -37,16 +40,17 @@ public class AddTrainingFragment extends Fragment {
     com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
 
     Button addTrainingBtn;
-    private static final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
+
+
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
 
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDatabase").allowMainThreadQueries().build();
-
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
         final ArrayAdapter<Sport> adapterSport= new ArrayAdapter<Sport>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
@@ -76,7 +80,8 @@ public class AddTrainingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
-                for(int i=0;i<2;i++) {
+
+                for(int i=0;i<db.sportDao().getAllSports().size();i++) {
                     if (selectedSportString.equals(db.sportDao().getAllSports().get(i).sportName)) {
 
                         techniqueArrayList.clear();
@@ -121,21 +126,37 @@ public class AddTrainingFragment extends Fragment {
                 long selectedTimeHours= Integer.valueOf(hours.getEditText().getText().toString());
                 long selectedTimeMinutes= Integer.valueOf(minutes.getEditText().getText().toString());
 
-                if(hours.getEditText().getText().toString().isEmpty() && minutes.getEditText().getText().toString().isEmpty()){
+                ArrayList<String> techniqueArrayListString=new ArrayList<String>();
+
+                for(int i=0;i<techniqueArrayList.size();i++){
+                    techniqueArrayListString.add(techniqueArrayList.get(i).toString());
+                }
+
+                if(!techniqueArrayListString.contains(selectedTechniqueString)){
+                    Snackbar mySnackbar = Snackbar.make(v,"Teknikken du har valgt tilhører ikke sporten du har valgt"
+                            ,
+                            3000);
+                    mySnackbar.show();
+                }
+                else if(hours.getEditText().getText().toString().equals("0") && minutes.getEditText().getText().toString().equals("0")){
 
                     Snackbar mySnackbar = Snackbar.make(v,"Du må legge til timer eller minutter"
                             ,
-                            1000);
+                            3000);
                     mySnackbar.show();
                 }
                 else {
 
 
-                            TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes);
+
+                            Calendar calendar= Calendar.getInstance();
+                            SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                            String dateAndTime= simpleDateFormat.format(calendar.getTime());
+                            TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
                             db.sportDao().addLog(trainingLog);
 
-                            showAddedTraining.setText(db.sportDao().getAllTrainingLogs().toString());
+                            showAddedTraining.setText("Treningen er lagt til");
 
 
                 }

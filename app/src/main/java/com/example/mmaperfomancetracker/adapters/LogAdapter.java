@@ -33,7 +33,7 @@ public class LogAdapter extends ArrayAdapter<TrainingLog> {
         time= convertView.findViewById(R.id.textView3);
 
 
-        sportName.setText(trainingLog.sportName);
+        sportName.setText(trainingLog.sportName +"\n"+"Lagt til: "+ trainingLog.dateAndTime);
         sportTechnique.setText(("Teknikk: "+String.valueOf(trainingLog.techniqueName)));
         time.setText("Timer: "+ trainingLog.hours+" Minutter: "+ trainingLog.minutes);
 

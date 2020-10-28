@@ -31,7 +31,7 @@ public class LogPageFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_logpage,container,false);
 
 
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDatabase").allowMainThreadQueries().build();
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
 
 
 
@@ -39,10 +39,6 @@ public class LogPageFragment extends Fragment {
         sport1= view.findViewById(R.id.textView2);
         sport2= view.findViewById(R.id.textView3);
         listView= view.findViewById(R.id.logListView);
-
-
-        Sport sport=new Sport(1,"Kickboxing");
-        Sport sport1=new Sport(2,"Grappling");
 
 
         LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());

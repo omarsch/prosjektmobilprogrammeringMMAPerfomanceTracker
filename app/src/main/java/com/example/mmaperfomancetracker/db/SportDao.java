@@ -50,4 +50,7 @@ public interface SportDao {
     @Query("SELECT * FROM TrainingLog")
     List<TrainingLog> getAllTrainingLogs();
 
+    @Query("DELETE FROM TrainingLog")
+    void deleteFromTrainingLog();
+
 }
