@@ -158,7 +158,7 @@ public class AddTrainingFragment extends Fragment {
                             String dateAndTime= simpleDateFormat.format(calendar.getTime());
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
-                            //db.sportDao().addLog(trainingLog);
+                            db.sportDao().addLog(trainingLog);
 
                             showAddedTraining.setText(R.string.addTraining_confirmation);
 

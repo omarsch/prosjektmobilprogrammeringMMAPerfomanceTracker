@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import com.example.mmaperfomancetracker.R;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LogAdapter extends ArrayAdapter<TrainingLog> {
@@ -23,7 +22,7 @@ public class LogAdapter extends ArrayAdapter<TrainingLog> {
         TrainingLog trainingLog=getItem(position);
 
         if(convertView==null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.stats_adapter_view_layout, parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.log_adapter_view_layout, parent,false);
         }
 
         com.google.android.material.textview.MaterialTextView sportName,sportTechnique,time;

@@ -20,22 +20,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="33.3"
-        >
+       >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textView2"
-            android:text="TextView2"
-            android:gravity="right"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"/>
-
-        <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:id="@+id/techniqueProgress"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:progress="50" />
+            android:gravity="center"
+            android:text="TExtView2"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="TExtView3"/>
 
     </LinearLayout>
 
