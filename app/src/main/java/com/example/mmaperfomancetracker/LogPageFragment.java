@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class LogPageFragment extends Fragment {
 
     ListView listView;
+    com.google.android.material.textview.MaterialTextView noDataMessage;
 
 
     @Nullable
@@ -31,12 +32,18 @@ public class LogPageFragment extends Fragment {
         getActivity().setTitle(R.string.logg_button);
 
 
-        SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
+        SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
         listView= view.findViewById(R.id.logListView);
+        noDataMessage= view.findViewById(R.id.logTextView);
+
+        if(db.sportDao().getAllTrainingLogs().isEmpty()){
+            noDataMessage.setText("No trainings added");
+        }
 
         LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());
         listView.setAdapter(adapter);
+
 
 
         return view;

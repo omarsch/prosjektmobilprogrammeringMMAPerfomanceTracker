@@ -17,6 +17,13 @@ public class Sport {
         this.sportName = sportName;
     }
 
+    public static Sport[] populateData(){
+        return new Sport[]{
+                new Sport(1,"Kickboxing"),
+                new Sport(2,"Grappling")
+        };
+    }
+
     @Override
     public String toString(){
         return  sportName;

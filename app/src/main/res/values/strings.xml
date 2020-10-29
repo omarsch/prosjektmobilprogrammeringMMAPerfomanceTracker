@@ -14,8 +14,8 @@
     <string name="hours_text">Hours</string>
     <string name="minutes_text">Minutes</string>
     <string name="addTraining_button">Add Training</string>
-    <string name="addTraining_confirmation">The training session is added</string>
     <string name="error_add_time">You must add hours or minutes</string>
     <string name="error_add_technique">The technique selected does not contain in the sport selected</string>
     <string name="timer">Timer</string>
+    <string name="database_name">sportLoggerDBv10</string>
 </resources>

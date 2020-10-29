@@ -36,7 +36,7 @@ public class StatsAdapter extends ArrayAdapter<StatsLog> {
         }
 
 
-        final SportDatabase db = Room.databaseBuilder(getContext(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
+        final SportDatabase db = Room.databaseBuilder(getContext(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
         long totalHours = 0;
         long totalMinutes = 0;

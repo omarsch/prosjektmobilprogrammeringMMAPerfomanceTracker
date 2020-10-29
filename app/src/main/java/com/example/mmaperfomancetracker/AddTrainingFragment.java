@@ -54,7 +54,13 @@ public class AddTrainingFragment extends Fragment {
 
         final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
 
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
+
+        if(db.sportDao().getAllSports().isEmpty()&&db.sportDao().getAllTechniques().isEmpty()){
+            db.sportDao().addAllSports(Sport.populateData());
+            db.sportDao().addAllTechniques(Technique.populateData());
+        }
+
 
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
         final ArrayAdapter<Sport> adapterSport= new ArrayAdapter<Sport>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
@@ -78,7 +84,8 @@ public class AddTrainingFragment extends Fragment {
         addTrainingBtn= view.findViewById(R.id.addTraining);
 
         showAddedTraining= view.findViewById(R.id.showAddedTraining);
-        
+
+
 
         editTextSport.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,7 +166,12 @@ public class AddTrainingFragment extends Fragment {
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
                             db.sportDao().addLog(trainingLog);
-                            showAddedTraining.setText("You have added your training");
+
+                    Snackbar mySnackbar = Snackbar.make(v,"You have added your training"
+                            ,
+                            3000);
+                    mySnackbar.show();
+                    
 
 
                 }

@@ -20,6 +20,18 @@ public class Technique {
         this.techniqueName = techniqueName;
     }
 
+
+    public static Technique[] populateData(){
+        return new Technique[]{
+                new Technique(1,1,"Front Kick"),
+                new Technique(2,1,"Side Kick"),
+                new Technique(3,1,"Roundhouse Kick"),
+                new Technique(4,2,"Double Leg Takedown"),
+                new Technique(5,2,"Single Leg Takedown"),
+                new Technique(6,2,"Triangle Choke"),
+        };
+    }
+
     @Override
     public String toString(){
         return techniqueName;

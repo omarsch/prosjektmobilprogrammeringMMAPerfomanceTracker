@@ -1,15 +1,9 @@
 package com.example.mmaperfomancetracker.db.tables;
 
-import androidx.annotation.Nullable;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
-
-import java.util.Comparator;
 
 @Entity
 public class StatsLog {
-
 
     public String techniqueName;
 

@@ -30,9 +30,17 @@ public interface SportDao {
     @Insert
     void addSport(Sport sport);
 
+    @Insert
+    void addAllSports(Sport... sport);
+
+
     //Technique Queries Table
     @Insert
     void addTechnique(Technique technique);
+
+
+    @Insert
+    void addAllTechniques(Technique... techniques);
 
     @Query("DELETE FROM Technique")
     void deleteTechnique();

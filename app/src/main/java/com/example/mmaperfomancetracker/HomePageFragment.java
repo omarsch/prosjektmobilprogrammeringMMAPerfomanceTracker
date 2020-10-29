@@ -19,6 +19,7 @@ import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.comparators.SortByTime;
 import com.example.mmaperfomancetracker.db.SportDatabase;
+import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,7 +42,8 @@ public class HomePageFragment extends Fragment {
         getActivity().setTitle(R.string.home_button);
 
 
-        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, "sportLoggerDBv1").allowMainThreadQueries().build();
+        final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class,  String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
+
 
         final ArrayList<StatsLog> statsLogs=new ArrayList<StatsLog>();
 
@@ -72,8 +74,8 @@ public class HomePageFragment extends Fragment {
             textViewprogressBar1.setText("No data");
             textViewprogressBar2.setText("No data");
             textViewprogressBar3.setText("No data");
-
         }
+
         else if(statsLogs.size()==1){
             double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
 
