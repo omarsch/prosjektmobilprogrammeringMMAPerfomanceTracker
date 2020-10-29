@@ -5,10 +5,10 @@
     android:shape="ring"
     android:innerRadiusRatio="2.5"
     android:thickness="10dp"
-    android:useLevel="true">
+    android:useLevel="false">
 
 
 
-    <solid android:color="@color/progressBarStart"/>
+    <solid android:color="@color/progressBarRem"/>
 
 </shape>

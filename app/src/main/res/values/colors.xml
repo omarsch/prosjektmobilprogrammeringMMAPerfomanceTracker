@@ -3,6 +3,7 @@
     <color name="colorPrimary">#BF3F3F</color>
     <color name="colorPrimaryDark">#BC1D1D</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="progressBar">#157B37</color>
+    <color name="progressBarStart">#157B37</color>
+    <color name="progressBarRem">#B2B5B3</color>
     <color name="textColorPrimary">#ffffff</color>
 </resources>

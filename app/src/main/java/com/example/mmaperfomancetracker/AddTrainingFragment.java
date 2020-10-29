@@ -159,7 +159,6 @@ public class AddTrainingFragment extends Fragment {
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
 
                             db.sportDao().addLog(trainingLog);
-                            ArrayList<String> arrayListTest=new ArrayList<String>();
                             showAddedTraining.setText("You have added your training");
 
 

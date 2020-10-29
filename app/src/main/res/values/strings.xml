@@ -17,4 +17,5 @@
     <string name="addTraining_confirmation">The training session is added</string>
     <string name="error_add_time">You must add hours or minutes</string>
     <string name="error_add_technique">The technique selected does not contain in the sport selected</string>
+    <string name="timer">Timer</string>
 </resources>

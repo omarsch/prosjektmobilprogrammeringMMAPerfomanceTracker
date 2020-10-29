@@ -11,8 +11,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
-        android:progress="80"
         android:progressDrawable="@drawable/progress_circle"
+        android:background="@drawable/backround_circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,8 +25,8 @@
         android:layout_height="100dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:progress="80"
         android:progressDrawable="@drawable/progress_circle"
+        android:background="@drawable/backround_circle"
         app:layout_constraintBottom_toTopOf="@+id/homeImage"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -47,8 +47,8 @@
         android:layout_height="100dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:progress="80"
         android:progressDrawable="@drawable/progress_circle"
+        android:background="@drawable/backround_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
 
@@ -175,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:contentDescription="@string/notf_button"
-                app:srcCompat="@drawable/notifications_24px"
+                app:srcCompat="@drawable/timer_24px"
                 tools:ignore="VectorDrawableCompat" />
 
             <LinearLayout
@@ -190,7 +190,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
-                android:text="@string/notf_button"
+                android:text="@string/timer"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/textColorPrimary" />
         </LinearLayout>
@@ -245,7 +245,38 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar1"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar1"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar1"
+        app:layout_constraintStart_toStartOf="@+id/progressBar1"
+        app:layout_constraintTop_toTopOf="@+id/progressBar1" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar3"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar3"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar3"
+        app:layout_constraintStart_toStartOf="@+id/progressBar3"
+        app:layout_constraintTop_toTopOf="@+id/progressBar3" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar2"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/progressBar2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,11 @@ public interface SportDao {
     @Query("DELETE FROM TrainingLog")
     void deleteFromTrainingLog();
 
-    @Query("SELECT techniqueName,hours,minutes FROM TrainingLog")
-    List<StatsLog> sortTechniques();
+    @Query("SELECT techniqueName,hours,minutes," +
+            "sum(hours) as hours, sum(minutes) as minutes" +
+            " FROM TrainingLog GROUP BY techniqueName")
+    List<StatsLog> sortTechniquesIndividual();
+
+
 
 }
