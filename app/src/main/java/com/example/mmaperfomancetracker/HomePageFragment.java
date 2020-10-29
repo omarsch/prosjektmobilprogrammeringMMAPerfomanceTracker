@@ -66,18 +66,57 @@ public class HomePageFragment extends Fragment {
             totalMinutesOfAll +=  statsLogs.get(i).getTotalMinutes();
         }
 
-        double progressOnBar1= Math.round(((double)statsLogs.get(2).getTotalMinutes()/(double)totalMinutesOfAll)*100);
-        double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
-        double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+
+        if(statsLogs.isEmpty()){
+
+            textViewprogressBar1.setText("No data");
+            textViewprogressBar2.setText("No data");
+            textViewprogressBar3.setText("No data");
+
+        }
+        else if(statsLogs.size()==1){
+            double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+
+            progressBar3.setProgress((int) progressOnBar3);
+
+            textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
+
+        }
+        else if(statsLogs.size()==2){
+            double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+            double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+
+            progressBar2.setProgress((int) progressOnBar2);
+            progressBar3.setProgress((int) progressOnBar3);
+
+            textViewprogressBar2.setText(String.valueOf(statsLogs.get(1).techniqueName));
+            textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
+
+        }
+        else if(statsLogs.size()==3){
+            double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+            double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+            double progressOnBar1= Math.round(((double)statsLogs.get(2).getTotalMinutes()/(double)totalMinutesOfAll)*100);
+
+            progressBar1.setProgress((int) progressOnBar1);
+            progressBar2.setProgress((int) progressOnBar2);
+            progressBar3.setProgress((int) progressOnBar3);
+
+            textViewprogressBar1.setText(String.valueOf(statsLogs.get(2).techniqueName));
+            textViewprogressBar2.setText(String.valueOf(statsLogs.get(1).techniqueName));
+            textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
+        }
 
 
-        progressBar1.setProgress((int) progressOnBar1);
-        progressBar2.setProgress((int) progressOnBar2);
-        progressBar3.setProgress((int) progressOnBar3);
 
-        textViewprogressBar1.setText(String.valueOf(statsLogs.get(2).techniqueName));
-        textViewprogressBar2.setText(String.valueOf(statsLogs.get(1).techniqueName));
-        textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
+
+
+
+
+
+
+
+
 
         logCard.setOnClickListener(new View.OnClickListener() {
             @Override
