@@ -95,7 +95,7 @@ public class HomePageFragment extends Fragment {
             textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
 
         }
-        else if(statsLogs.size()==3){
+        else {
             double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
             double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
             double progressOnBar1= Math.round(((double)statsLogs.get(2).getTotalMinutes()/(double)totalMinutesOfAll)*100);
