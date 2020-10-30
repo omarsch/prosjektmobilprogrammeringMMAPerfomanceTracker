@@ -11,8 +11,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
-        android:progressDrawable="@drawable/progress_circle"
         android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,8 +25,8 @@
         android:layout_height="100dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:progressDrawable="@drawable/progress_circle"
         android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
         app:layout_constraintBottom_toTopOf="@+id/homeImage"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -47,8 +47,8 @@
         android:layout_height="100dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:progressDrawable="@drawable/progress_circle"
         android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
 
@@ -56,16 +56,16 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/loggCard"
         style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:checkable="true"
-        android:layout_width="180dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardElevation="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/statsCard"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeImage">
 
@@ -84,19 +84,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="vertical"
                 android:background="@color/textColorPrimary"
-               />
+                android:orientation="vertical" />
 
-                <TextView
-                    android:id="@+id/loggText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginLeft="6dp"
-                    android:text="@string/logg_button"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textColor="@color/textColorPrimary" />
+            <TextView
+                android:id="@+id/loggText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="@string/logg_button"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/textColorPrimary" />
 
         </LinearLayout>
 
@@ -105,17 +104,17 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/statsCard"
         style="@style/Widget.MaterialComponents.CardView"
-        android:clickable="true"
-        android:focusable="true"
-        android:checkable="true"
-        android:layout_width="180dp"
+        android:layout_width="140dp"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/loggCard"
         app:layout_constraintTop_toBottomOf="@+id/homeImage">
 
         <LinearLayout
@@ -133,8 +132,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:orientation="vertical"
-                android:background="@color/textColorPrimary" />
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
 
             <TextView
                 android:id="@+id/statsText"
@@ -153,17 +152,17 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/notifCard"
         style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:checkable="true"
-        android:layout_width="180dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mapsCard"
         app:layout_constraintTop_toBottomOf="@+id/statsCard">
 
         <LinearLayout
@@ -181,8 +180,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="vertical"
-                android:background="@color/textColorPrimary"/>
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
 
             <TextView
                 android:id="@+id/notifText"
@@ -200,16 +199,16 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mapsCard"
         style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:checkable="true"
-        android:layout_width="180dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardElevation="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/notifCard"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loggCard">
 
@@ -228,8 +227,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:orientation="vertical"
-                android:background="@color/textColorPrimary"/>
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
 
             <TextView
                 android:id="@+id/mapsText"
