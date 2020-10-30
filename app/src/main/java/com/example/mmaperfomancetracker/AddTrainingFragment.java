@@ -1,10 +1,12 @@
 package com.example.mmaperfomancetracker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +38,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class AddTrainingFragment extends Fragment {
 
@@ -171,8 +175,8 @@ public class AddTrainingFragment extends Fragment {
                             ,
                             3000);
                     mySnackbar.show();
-                    
 
+                    hideKeyboard(view);
 
                 }
 
@@ -181,7 +185,12 @@ public class AddTrainingFragment extends Fragment {
             }
         });
 
+
         return view;
     }
+    private void hideKeyboard(View view){
+        InputMethodManager inputMethodManager = (InputMethodManager)getContext().getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);    }
+
 
 }
