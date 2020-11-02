@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton extendedFloatingActionButton;
+    private FloatingActionButton extendedFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

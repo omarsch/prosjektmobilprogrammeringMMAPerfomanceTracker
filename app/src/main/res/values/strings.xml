@@ -17,5 +17,8 @@
     <string name="error_add_time">You must add hours or minutes</string>
     <string name="error_add_technique">The technique selected does not contain in the sport selected</string>
     <string name="timer">Timer</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
     <string name="database_name">sportLoggerDBv10</string>
 </resources>

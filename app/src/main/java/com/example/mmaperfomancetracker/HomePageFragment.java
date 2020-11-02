@@ -30,9 +30,9 @@ import java.util.Collections;
 
 public class HomePageFragment extends Fragment {
 
-    com.google.android.material.card.MaterialCardView logCard, statsCard, notifCard;
-    ProgressBar progressBar1,progressBar2,progressBar3;
-    com.google.android.material.textview.MaterialTextView textViewprogressBar1,textViewprogressBar2,textViewprogressBar3;
+    private com.google.android.material.card.MaterialCardView logCard, statsCard, notifCard;
+    private ProgressBar progressBar1,progressBar2,progressBar3;
+    private com.google.android.material.textview.MaterialTextView textViewprogressBar1,textViewprogressBar2,textViewprogressBar3;
 
 
     @Nullable

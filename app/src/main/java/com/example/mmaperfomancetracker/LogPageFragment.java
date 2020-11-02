@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class LogPageFragment extends Fragment {
 
-    ListView listView;
-    com.google.android.material.textview.MaterialTextView noDataMessage;
+    private ListView listView;
+    private com.google.android.material.textview.MaterialTextView noDataMessage;
 
 
     @Nullable

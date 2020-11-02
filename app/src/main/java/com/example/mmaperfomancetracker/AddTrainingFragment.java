@@ -44,10 +44,10 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class AddTrainingFragment extends Fragment {
 
 
-    com.google.android.material.textview.MaterialTextView techniqueText,durationText,showAddedTraining;
-    com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
+    private com.google.android.material.textview.MaterialTextView techniqueText,durationText,showAddedTraining;
+    private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
 
-    Button addTrainingBtn;
+    private Button addTrainingBtn;
 
     @Nullable
     @Override
