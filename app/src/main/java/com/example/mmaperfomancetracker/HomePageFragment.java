@@ -143,7 +143,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment fragment= new NotificationsPageFragment();
+                Fragment fragment= new TimerPageFragment();
                 replaceFragment(fragment);
 
             }
