@@ -31,7 +31,7 @@ public class TimerPageFragment extends Fragment{
     private Chronometer timer;
     private boolean running;
     private long pauseOffset;
-    private long timeAdded;
+    private int timeAdded;
     private com.google.android.material.button.MaterialButton start,stop,pause;
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
@@ -159,8 +159,8 @@ public class TimerPageFragment extends Fragment{
             running=false;
         }
 
-        timeAdded=pauseOffset/1000;
-        Snackbar mySnackbar = Snackbar.make(v,"You have added "+timeAdded
+
+        Snackbar mySnackbar = Snackbar.make(v,"You have added "+ timer.getText().toString()
                 ,
                 3000);
         mySnackbar.show();

@@ -15,8 +15,8 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Toast toast = Toast.makeText(this, "Service started", Toast.LENGTH_SHORT);
-        toast.show();
+        /*Toast toast = Toast.makeText(this, "Service started", Toast.LENGTH_SHORT);
+        toast.show();*/
 
         return START_STICKY;
     }
@@ -24,8 +24,8 @@ public class TimerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast toast = Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT);
-        toast.show();
+        /*Toast toast = Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT);
+        toast.show();*/
     }
 
     @Nullable
