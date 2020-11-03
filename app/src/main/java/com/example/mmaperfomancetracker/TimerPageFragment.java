@@ -1,5 +1,6 @@
 package com.example.mmaperfomancetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class TimerPageFragment extends Fragment {
+public class TimerPageFragment extends Fragment{
 
     private Chronometer timer;
     private boolean running;
@@ -50,6 +51,7 @@ public class TimerPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startTimer(v);
+                getActivity().startService(new Intent(getActivity(),TimerService.class));
             }
         });
 
@@ -64,6 +66,8 @@ public class TimerPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 stopTimer(v);
+                getActivity().stopService(new Intent(getActivity(),TimerService.class));
+
             }
         });
 
