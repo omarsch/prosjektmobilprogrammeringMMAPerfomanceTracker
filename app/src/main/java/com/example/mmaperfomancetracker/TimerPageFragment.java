@@ -36,6 +36,19 @@ public class TimerPageFragment extends Fragment{
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +64,12 @@ public class TimerPageFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 startTimer(v);
-                getActivity().startService(new Intent(getActivity(),TimerService.class));
+
+                String input= timer.getText().toString();
+
+                Intent serviceIntent= new Intent(getContext(),TimerService.class);
+                serviceIntent.putExtra("inputExtra", input);
+                getActivity().startService(serviceIntent);
             }
         });
 
@@ -66,8 +84,9 @@ public class TimerPageFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 stopTimer(v);
-                getActivity().stopService(new Intent(getActivity(),TimerService.class));
 
+                Intent serviceIntent= new Intent(getContext(),TimerService.class);
+                getActivity().stopService(serviceIntent);
             }
         });
 
@@ -134,6 +153,7 @@ public class TimerPageFragment extends Fragment{
     }
 
 
+
     public void startTimer(View v){
         if(!running){
             timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
@@ -141,6 +161,8 @@ public class TimerPageFragment extends Fragment{
             running= true;
             stop.setEnabled(true);
         }
+
+
     }
 
     public void pauseTimer(View v){
