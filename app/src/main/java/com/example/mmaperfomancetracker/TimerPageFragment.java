@@ -1,6 +1,8 @@
 package com.example.mmaperfomancetracker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -20,8 +22,6 @@ import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.services.TimerService;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -29,24 +29,28 @@ import java.util.ArrayList;
 public class TimerPageFragment extends Fragment{
 
     private Chronometer timer;
-    private boolean running;
+    private boolean running=false;
     private long pauseOffset;
     private int timeAdded;
-    private com.google.android.material.button.MaterialButton start,stop,pause;
+    private String chosenSport;
+    private String chosenTechnique;
+    private com.google.android.material.button.MaterialButton start,stop,add;
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
 
-
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        
 
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
     }
 
     @Nullable
@@ -58,25 +62,21 @@ public class TimerPageFragment extends Fragment{
         timer= view.findViewById(R.id.timer);
         start= view.findViewById(R.id.startTimer);
         stop= view.findViewById(R.id.stopTimer);
-        pause= view.findViewById(R.id.pauseTimer);
+        add= view.findViewById(R.id.addTimer);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTimer(v);
 
-                String input= timer.getText().toString();
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
-                serviceIntent.putExtra("inputExtra", input);
+                serviceIntent.putExtra("pauseOffset", pauseOffset);
                 getActivity().startService(serviceIntent);
-            }
-        });
 
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseTimer(v);
+                chosenSport= selectedSport.getEditText().getText().toString();
+                chosenTechnique= selectedTechnique.getEditText().getText().toString();
+
             }
         });
 
@@ -89,6 +89,15 @@ public class TimerPageFragment extends Fragment{
                 getActivity().stopService(serviceIntent);
             }
         });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
 
         final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
@@ -140,7 +149,7 @@ public class TimerPageFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 start.setEnabled(true);
-                pause.setEnabled(true);
+                add.setEnabled(true);
 
             }
         });
@@ -165,14 +174,6 @@ public class TimerPageFragment extends Fragment{
 
     }
 
-    public void pauseTimer(View v){
-        if(running){
-            timer.stop();
-            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-            running=false;
-        }
-    }
-
 
     public void stopTimer(View v){
         if(running){
@@ -180,11 +181,9 @@ public class TimerPageFragment extends Fragment{
             pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
             running=false;
         }
-
-
-        Snackbar mySnackbar = Snackbar.make(v,"You have added "+ timer.getText().toString()
-                ,
-                3000);
-        mySnackbar.show();
     }
+
+
+
+
 }

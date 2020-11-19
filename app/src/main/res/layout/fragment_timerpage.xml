@@ -82,35 +82,35 @@
         android:id="@+id/startTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/start"
+        android:layout_marginTop="16dp"
         android:enabled="false"
-        app:layout_constraintEnd_toStartOf="@+id/pauseTimer"
+        android:text="@string/start"
+        app:layout_constraintEnd_toStartOf="@+id/stopTimer"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/pauseTimer"
+        android:id="@+id/addTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/pause"
+        android:layout_marginTop="16dp"
         android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/startTimer"
-        app:layout_constraintTop_toBottomOf="@+id/timer" />
+        android:text="@string/add_button"
+        app:layout_constraintEnd_toEndOf="@+id/stopTimer"
+        app:layout_constraintStart_toStartOf="@+id/startTimer"
+        app:layout_constraintTop_toBottomOf="@+id/stopTimer" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/stopTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/stop"
+        android:layout_marginTop="16dp"
         android:enabled="false"
-        app:layout_constraintEnd_toEndOf="@+id/pauseTimer"
-        app:layout_constraintStart_toStartOf="@+id/startTimer"
-        app:layout_constraintTop_toBottomOf="@+id/pauseTimer" />
+        android:text="@string/stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/startTimer"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
