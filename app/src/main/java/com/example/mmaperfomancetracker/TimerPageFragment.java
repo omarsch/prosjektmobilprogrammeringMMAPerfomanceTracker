@@ -39,20 +39,6 @@ public class TimerPageFragment extends Fragment{
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,7 +53,12 @@ public class TimerPageFragment extends Fragment{
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimer(v);
+                if(!running){
+                    timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+                    timer.start();
+                    running= true;
+                    stop.setEnabled(true);
+                }
 
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
@@ -83,7 +74,11 @@ public class TimerPageFragment extends Fragment{
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopTimer(v);
+                if(running){
+                    timer.stop();
+                    pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+                    running=false;
+                }
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
                 getActivity().stopService(serviceIntent);
@@ -160,30 +155,6 @@ public class TimerPageFragment extends Fragment{
         return view;
 
     }
-
-
-
-    public void startTimer(View v){
-        if(!running){
-            timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            timer.start();
-            running= true;
-            stop.setEnabled(true);
-        }
-
-
-    }
-
-
-    public void stopTimer(View v){
-        if(running){
-            timer.stop();
-            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-            running=false;
-        }
-    }
-
-
 
 
 }
