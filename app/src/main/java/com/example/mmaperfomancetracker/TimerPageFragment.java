@@ -67,6 +67,7 @@ public class TimerPageFragment extends Fragment{
         }
         else{
             timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
+            timerStoppedMillis=System.currentTimeMillis();
         }
 
         stop.setEnabled(true);
