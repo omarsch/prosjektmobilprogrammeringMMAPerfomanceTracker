@@ -131,15 +131,23 @@ public class AddTrainingFragment extends Fragment {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
                 String selectedTechniqueString=selectedTechnique.getEditText().getText().toString();
 
-                if(hours.getEditText().getText().toString().isEmpty()){
+                if(hours.getEditText().getText().toString().isEmpty()&&
+                        minutes.getEditText().getText().toString().isEmpty()){
+
+                    minutes.getEditText().setText("0");
+                    hours.getEditText().setText("0");
+
+                }
+                else if(hours.getEditText().getText().toString().isEmpty()){
                     hours.getEditText().setText("0");
                 }
                 else if(minutes.getEditText().getText().toString().isEmpty()){
                     minutes.getEditText().setText("0");
                 }
 
-                long selectedTimeHours= Integer.valueOf(hours.getEditText().getText().toString());
-                long selectedTimeMinutes= Integer.valueOf(minutes.getEditText().getText().toString());
+
+
+
 
                 ArrayList<String> techniqueArrayListString=new ArrayList<String>();
 
@@ -162,7 +170,8 @@ public class AddTrainingFragment extends Fragment {
                 }
                 else {
 
-
+                            long selectedTimeHours= Integer.valueOf(hours.getEditText().getText().toString());
+                            long selectedTimeMinutes= Integer.valueOf(minutes.getEditText().getText().toString());
 
                             Calendar calendar= Calendar.getInstance();
                             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
