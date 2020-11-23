@@ -178,6 +178,9 @@ public class AddTrainingFragment extends Fragment {
 
                     hideKeyboard(view);
 
+                    Fragment fragment= new HomePageFragment();
+                    replaceFragment(fragment);
+
                 }
 
 
@@ -190,7 +193,16 @@ public class AddTrainingFragment extends Fragment {
     }
     private void hideKeyboard(View view){
         InputMethodManager inputMethodManager = (InputMethodManager)getContext().getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);    }
+        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
 
 }

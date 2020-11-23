@@ -16,6 +16,8 @@ import android.widget.Chronometer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.db.SportDatabase;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 public class TimerPageFragment extends Fragment{
 
     private Chronometer timer;
-    private boolean running;
+    private boolean running, trainingStatus;
     private long pauseOffset,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
     private long timerStoppedMillis, timerStoppedDuration;
     private int timeAdded;
@@ -49,6 +51,7 @@ public class TimerPageFragment extends Fragment{
         SharedPreferences pref= this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
 
         running= pref.getBoolean("running",false);
+        trainingStatus= pref.getBoolean("trainingStatus",false);
         chosenSport=pref.getString("chosenSport",null);
         chosenTechnique=pref.getString("chosenTechnique",null);
         pauseOffset=pref.getLong("pauseOffset",0);
@@ -61,25 +64,31 @@ public class TimerPageFragment extends Fragment{
         timeAbsent=appOpenedCurrentTime-appClosedCurrentTime;
         timerStoppedDuration=appClosedCurrentTime-timerStoppedMillis;
 
-        if(running){
-            timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)-timeAbsent);
-            timer.start();
-        }
-        else{
-            timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
-            timerStoppedMillis=System.currentTimeMillis();
-        }
 
-        stop.setEnabled(true);
-        start.setEnabled(true);
-        add.setEnabled(true);
-        selectedSport.getEditText().setText(chosenSport);
-        selectedTechnique.getEditText().setText(chosenTechnique);
-        techniqueText.setVisibility(View.VISIBLE);
-        selectedTechnique.setVisibility(View.VISIBLE);
-        editTextSportView.setVisibility(View.VISIBLE);
-        selectedSport.setEnabled(false);
-        selectedTechnique.setEnabled(false);
+
+        if(trainingStatus) {
+            if (running) {
+                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) - timeAbsent);
+                timer.start();
+
+            } else {
+                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) + timerStoppedDuration);
+                timerStoppedMillis = System.currentTimeMillis();
+            }
+            stop.setEnabled(true);
+            start.setEnabled(true);
+            add.setEnabled(true);
+            selectedSport.getEditText().setText(chosenSport);
+            selectedTechnique.getEditText().setText(chosenTechnique);
+            techniqueText.setVisibility(View.VISIBLE);
+            selectedTechnique.setVisibility(View.VISIBLE);
+            editTextSportView.setVisibility(View.VISIBLE);
+            selectedSport.setEnabled(false);
+            selectedTechnique.setEnabled(false);
+        }
+        else {
+            timer.setBase(SystemClock.elapsedRealtime());
+        }
 
     }
 
@@ -94,6 +103,7 @@ public class TimerPageFragment extends Fragment{
         SharedPreferences.Editor editor= pref.edit();
 
         editor.putBoolean("running",running);
+        editor.putBoolean("trainingStatus",trainingStatus);
         editor.putString("chosenSport",chosenSport);
         editor.putString("chosenTechnique",chosenTechnique);
         editor.putLong("pauseOffset",pauseOffset);
@@ -177,14 +187,30 @@ public class TimerPageFragment extends Fragment{
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!running){
-                    timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-                    timer.start();
-                    running= true;
-                    stop.setEnabled(true);
-                    selectedSport.setEnabled(false);
-                    selectedTechnique.setEnabled(false);
+                if(trainingStatus){
+                    if(!running){
+                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset+1000);
+                        timer.start();
+                        running= true;
+                        trainingStatus=true;
+                        stop.setEnabled(true);
+                        selectedSport.setEnabled(false);
+                        selectedTechnique.setEnabled(false);
+                    }
                 }
+                else {
+                    if(!running){
+                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+                        timer.start();
+                        running= true;
+                        trainingStatus=true;
+                        stop.setEnabled(true);
+                        selectedSport.setEnabled(false);
+                        selectedTechnique.setEnabled(false);
+                    }
+                }
+
+
 
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
@@ -204,6 +230,7 @@ public class TimerPageFragment extends Fragment{
                     timer.stop();
                     pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
                     running=false;
+                    trainingStatus=true;
                     timerStoppedMillis=System.currentTimeMillis();
                 }
 
@@ -215,18 +242,19 @@ public class TimerPageFragment extends Fragment{
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref= getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor= pref.edit();
-                editor.clear();
-                editor.apply();
 
+                trainingStatus=false;
                 pauseOffset=0;
                 timeAbsent=0;
                 running=false;
                 timer.setBase(SystemClock.elapsedRealtime());
                 timer.stop();
                 appClosedCurrentTime=0;
+                timerStoppedMillis=System.currentTimeMillis();
                 timerStoppedDuration=0;
+                Fragment fragment= new HomePageFragment();
+                replaceFragment(fragment);
+
 
             }
         });
@@ -238,4 +266,11 @@ public class TimerPageFragment extends Fragment{
     }
 
 
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 }
