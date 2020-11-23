@@ -31,6 +31,7 @@ public class TimerPageFragment extends Fragment{
     private Chronometer timer;
     private boolean running;
     private long pauseOffset,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
+    private long timerStoppedMillis, timerStoppedDuration;
     private int timeAdded;
     private String chosenSport,chosenTechnique;
     private com.google.android.material.button.MaterialButton start,stop,add;
@@ -52,24 +53,32 @@ public class TimerPageFragment extends Fragment{
         chosenTechnique=pref.getString("chosenTechnique",null);
         pauseOffset=pref.getLong("pauseOffset",0);
         appClosedCurrentTime=pref.getLong("appClosedCurrentTime",0);
+        timerStoppedMillis=pref.getLong("timerStoppedMillis",0);
+        timerStoppedDuration=pref.getLong("timerStoppedDuration",0);
         AutoCompleteTextView editTextSportView= getView().findViewById(R.id.filled_exposed_dropdown_technique_timer);
 
         appOpenedCurrentTime=System.currentTimeMillis();
         timeAbsent=appOpenedCurrentTime-appClosedCurrentTime;
+        timerStoppedDuration=appClosedCurrentTime-timerStoppedMillis;
+
         if(running){
             timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)-timeAbsent);
             timer.start();
-            stop.setEnabled(true);
-            start.setEnabled(true);
-            add.setEnabled(true);
-            selectedSport.getEditText().setText(chosenSport);
-            selectedTechnique.getEditText().setText(chosenTechnique);
-            techniqueText.setVisibility(View.VISIBLE);
-            selectedTechnique.setVisibility(View.VISIBLE);
-            editTextSportView.setVisibility(View.VISIBLE);
-            selectedSport.setEnabled(false);
-            selectedTechnique.setEnabled(false);
         }
+        else{
+            timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
+        }
+
+        stop.setEnabled(true);
+        start.setEnabled(true);
+        add.setEnabled(true);
+        selectedSport.getEditText().setText(chosenSport);
+        selectedTechnique.getEditText().setText(chosenTechnique);
+        techniqueText.setVisibility(View.VISIBLE);
+        selectedTechnique.setVisibility(View.VISIBLE);
+        editTextSportView.setVisibility(View.VISIBLE);
+        selectedSport.setEnabled(false);
+        selectedTechnique.setEnabled(false);
 
     }
 
@@ -88,6 +97,8 @@ public class TimerPageFragment extends Fragment{
         editor.putString("chosenTechnique",chosenTechnique);
         editor.putLong("pauseOffset",pauseOffset);
         editor.putLong("appClosedCurrentTime",appClosedCurrentTime);
+        editor.putLong("timerStoppedMillis",timerStoppedMillis);
+        editor.putLong("timerStoppedDuration",timerStoppedDuration);
 
         editor.apply();
 
@@ -192,6 +203,7 @@ public class TimerPageFragment extends Fragment{
                     timer.stop();
                     pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
                     running=false;
+                    timerStoppedMillis=System.currentTimeMillis();
                 }
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
@@ -212,6 +224,8 @@ public class TimerPageFragment extends Fragment{
                 running=false;
                 timer.setBase(SystemClock.elapsedRealtime());
                 timer.stop();
+                appClosedCurrentTime=0;
+                timerStoppedDuration=0;
 
             }
         });
