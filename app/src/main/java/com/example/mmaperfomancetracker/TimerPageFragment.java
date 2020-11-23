@@ -30,9 +30,13 @@ public class TimerPageFragment extends Fragment{
 
     private Chronometer timer;
     private boolean running;
-    private long pauseOffset,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
+    private long pauseOffset;
+    private long timeAbsent;
+    private long appClosedCurrentTime;
+    private long appOpenedCurrentTime;
     private int timeAdded;
-    private String chosenSport,chosenTechnique;
+    private String chosenSport;
+    private String chosenTechnique;
     private com.google.android.material.button.MaterialButton start,stop,add;
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
@@ -69,6 +73,7 @@ public class TimerPageFragment extends Fragment{
             editTextSportView.setVisibility(View.VISIBLE);
             selectedSport.setEnabled(false);
             selectedTechnique.setEnabled(false);
+
         }
 
     }
