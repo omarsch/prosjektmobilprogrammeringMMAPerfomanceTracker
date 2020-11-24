@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Chronometer;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +46,17 @@ public class TimerPageFragment extends Fragment{
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+2000);
+    }
 
     @Override
     public void onStart() {
@@ -112,11 +124,11 @@ public class TimerPageFragment extends Fragment{
             timer.setBase(SystemClock.elapsedRealtime());
             timer.stop();
             appClosedCurrentTime=0;
-            timerStoppedMillis=System.currentTimeMillis();
             timerStoppedDuration=0;
         }
         else {
             pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+            timerStoppedMillis=System.currentTimeMillis();
         }
 
         appClosedCurrentTime=System.currentTimeMillis();
@@ -136,9 +148,8 @@ public class TimerPageFragment extends Fragment{
 
         editor.apply();
 
-
-
     }
+
 
     @Nullable
     @Override
@@ -212,33 +223,19 @@ public class TimerPageFragment extends Fragment{
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(trainingStatus){
-                    if(!running){
+                if(!running){
 
-                        pauseOffset=pauseOffset+1000;
-                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-                        timer.start();
-                        running= true;
-                        trainingStatus=true;
-                        stop.setEnabled(true);
-                        selectedSport.setEnabled(false);
-                        selectedTechnique.setEnabled(false);
 
-                    }
+                    timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+                    timer.start();
+                    running= true;
+                    trainingStatus=true;
+                    stop.setEnabled(true);
+                    selectedSport.setEnabled(false);
+                    selectedTechnique.setEnabled(false);
+
+
                 }
-                else {
-                    if(!running){
-
-                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-                        timer.start();
-                        running= true;
-                        trainingStatus=true;
-                        stop.setEnabled(true);
-                        selectedSport.setEnabled(false);
-                        selectedTechnique.setEnabled(false);
-                    }
-                }
-
 
 
                 start.setEnabled(false);
@@ -305,6 +302,7 @@ public class TimerPageFragment extends Fragment{
                 getActivity().stopService(serviceIntent);
             }
         });
+
 
 
 
