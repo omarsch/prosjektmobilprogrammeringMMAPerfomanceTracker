@@ -41,7 +41,8 @@ public class TimerService extends Service {
                 0,notifIntent,0);
 
         RemoteViews chronometerView= new RemoteViews(getPackageName(),R.layout.notfication);
-        chronometerView.setChronometer(R.id.timerNotification, SystemClock.elapsedRealtime() - pauseOffset,null,true);
+        chronometerView.setChronometer(R.id.timerNotification, SystemClock.elapsedRealtime() -
+                pauseOffset,null,true);
 
         Notification notification= new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.timer_24px)

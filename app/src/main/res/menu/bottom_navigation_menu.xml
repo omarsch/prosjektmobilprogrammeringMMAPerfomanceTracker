@@ -5,9 +5,15 @@
         android:enabled="true"
         android:icon="@drawable/homeicon"
         android:title="@string/home_button" />
-        <item
+    <item
+        android:id="@+id/nav_addTraining"
+        android:enabled="true"
+        android:icon="@drawable/add_24px"
+        android:title="@string/addTraining_button"/>
+    <item
         android:id="@+id/nav_notif"
         android:enabled="true"
         android:icon="@drawable/notifications_24px"
         android:title="@string/notf_button"/>
+
 </menu>

@@ -23,10 +23,13 @@ import androidx.room.Room;
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.Technique;
+import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.example.mmaperfomancetracker.services.TimerService;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimerPageFragment extends Fragment{
 
@@ -34,7 +37,7 @@ public class TimerPageFragment extends Fragment{
     private boolean running, trainingStatus;
     private long pauseOffset,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
     private long timerStoppedMillis, timerStoppedDuration;
-    private int timeAdded;
+    private int hours=0,minutes=0;
     private String chosenSport,chosenTechnique;
     private com.google.android.material.button.MaterialButton start,stop,add;
     private com.google.android.material.textview.MaterialTextView techniqueText;
@@ -76,7 +79,7 @@ public class TimerPageFragment extends Fragment{
                 timerStoppedMillis = System.currentTimeMillis();
             }
             stop.setEnabled(true);
-            start.setEnabled(true);
+            start.setEnabled(false);
             add.setEnabled(true);
             selectedSport.getEditText().setText(chosenSport);
             selectedTechnique.getEditText().setText(chosenTechnique);
@@ -96,8 +99,23 @@ public class TimerPageFragment extends Fragment{
     public void onStop() {
         super.onStop();
 
+        if(!trainingStatus){
+
+            pauseOffset=0;
+            timeAbsent=0;
+            running=false;
+            timer.setBase(SystemClock.elapsedRealtime());
+            timer.stop();
+            appClosedCurrentTime=0;
+            timerStoppedMillis=System.currentTimeMillis();
+            timerStoppedDuration=0;
+        }
+        else {
+            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+        }
+
         appClosedCurrentTime=System.currentTimeMillis();
-        pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+
 
         SharedPreferences pref= this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor= pref.edit();
@@ -112,6 +130,8 @@ public class TimerPageFragment extends Fragment{
         editor.putLong("timerStoppedDuration",timerStoppedDuration);
 
         editor.apply();
+
+
 
     }
 
@@ -189,17 +209,21 @@ public class TimerPageFragment extends Fragment{
             public void onClick(View v) {
                 if(trainingStatus){
                     if(!running){
-                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset+1000);
+
+                        pauseOffset=pauseOffset+1000;
+                        timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
                         timer.start();
                         running= true;
                         trainingStatus=true;
                         stop.setEnabled(true);
                         selectedSport.setEnabled(false);
                         selectedTechnique.setEnabled(false);
+
                     }
                 }
                 else {
                     if(!running){
+
                         timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
                         timer.start();
                         running= true;
@@ -212,7 +236,7 @@ public class TimerPageFragment extends Fragment{
 
 
 
-
+                start.setEnabled(false);
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
                 serviceIntent.putExtra("pauseOffset", pauseOffset);
                 getActivity().startService(serviceIntent);
@@ -232,6 +256,8 @@ public class TimerPageFragment extends Fragment{
                     running=false;
                     trainingStatus=true;
                     timerStoppedMillis=System.currentTimeMillis();
+                    start.setEnabled(true);
+                    stop.setEnabled(false);
                 }
 
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
@@ -243,19 +269,37 @@ public class TimerPageFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
+                Calendar calendar= Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                String dateAndTime= simpleDateFormat.format(calendar.getTime());
+
+
+
+                pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+                minutes= (int) (pauseOffset/(1000*60))%60;
+                hours= (int) ((pauseOffset / (1000*60*60)) % 24);
+
+                if(minutes==0&&hours==0){
+                    minutes=1;
+                    TrainingLog trainingLog=new TrainingLog(chosenSport,chosenTechnique,hours, minutes, dateAndTime);
+                    db.sportDao().addLog(trainingLog);
+                }
+                else{
+                    TrainingLog trainingLog=new TrainingLog(chosenSport,chosenTechnique,hours, minutes, dateAndTime);
+                    db.sportDao().addLog(trainingLog);
+                }
+
                 trainingStatus=false;
-                pauseOffset=0;
-                timeAbsent=0;
-                running=false;
-                timer.setBase(SystemClock.elapsedRealtime());
-                timer.stop();
-                appClosedCurrentTime=0;
-                timerStoppedMillis=System.currentTimeMillis();
-                timerStoppedDuration=0;
                 Fragment fragment= new HomePageFragment();
                 replaceFragment(fragment);
 
+                Snackbar mySnackbar = Snackbar.make(v,"You have added your training "
+                        ,
+                        3000);
+                mySnackbar.show();
 
+                Intent serviceIntent= new Intent(getContext(),TimerService.class);
+                getActivity().stopService(serviceIntent);
             }
         });
 

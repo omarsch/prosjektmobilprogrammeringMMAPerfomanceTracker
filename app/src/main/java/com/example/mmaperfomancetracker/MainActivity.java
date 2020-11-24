@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton extendedFloatingActionButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomePageFragment()).commit();
-
-        extendedFloatingActionButton= findViewById(R.id.floating_action_button);
-
-        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AddTrainingFragment()).addToBackStack(null).commit();
-            }
-        });
 
 
 
@@ -66,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_notif:
                             selectedFragment= new NotificationsPageFragment();
+                            break;
+                        case R.id.nav_addTraining:
+                            selectedFragment= new AddTrainingFragment();
                             break;
                     }
 
