@@ -46,17 +46,6 @@ public class TimerPageFragment extends Fragment{
     private com.google.android.material.textview.MaterialTextView techniqueText;
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+2000);
-    }
 
     @Override
     public void onStart() {
