@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    >
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary">
 
+    <ImageView
+        android:id="@+id/timerIconNotif"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginRight="20dp"
+        android:contentDescription="@string/timer"
+        app:srcCompat="@drawable/timer_24px"
+        tools:ignore="VectorDrawableCompat" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
     <TextView
         android:id="@+id/notification_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/timer"
-        style="@style/TextAppearance.MaterialComponents.Headline6"  />
+        style="@style/TextAppearance.MaterialComponents.Headline6">
+
+    </TextView>
     <Chronometer
         android:id="@+id/timerNotification"
         style="@style/Widget.MaterialComponents.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>
