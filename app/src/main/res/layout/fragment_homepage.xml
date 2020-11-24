@@ -162,7 +162,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/notifCard"
+        android:id="@+id/timeCard"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="140dp"
         android:layout_height="150dp"
@@ -185,7 +185,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:contentDescription="@string/notf_button"
+                android:contentDescription="@string/timer"
                 app:srcCompat="@drawable/timer_24px"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -219,7 +219,7 @@
         android:focusable="true"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardElevation="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/notifCard"
+        app:layout_constraintEnd_toStartOf="@+id/timeCard"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loggCard">

@@ -1,11 +1,14 @@
 package com.example.mmaperfomancetracker;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -13,6 +16,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Bundle extras= getIntent().getExtras();
+        if(extras !=null){
+            final boolean fromNotif= extras.getBoolean("notification");
+            if(fromNotif){
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new TimerPageFragment()).commit();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -29,6 +29,7 @@ import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.SportWithTechniques;
 import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.security.acl.Owner;
@@ -48,6 +49,7 @@ public class AddTrainingFragment extends Fragment {
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique,hours,minutes;
 
     private Button addTrainingBtn;
+
 
     @Nullable
     @Override

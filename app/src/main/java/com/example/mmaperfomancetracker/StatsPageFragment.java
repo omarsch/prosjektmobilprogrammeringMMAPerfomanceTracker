@@ -16,6 +16,7 @@ import com.example.mmaperfomancetracker.comparators.SortByTime;
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import com.example.mmaperfomancetracker.db.tables.Technique;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +24,12 @@ import java.util.Collections;
 public class StatsPageFragment extends Fragment {
     private  ListView listView;
     private com.google.android.material.textview.MaterialTextView noDataMessage;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        unselectAllItems();
+    }
 
     @Nullable
     @Override
@@ -50,6 +57,15 @@ public class StatsPageFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void unselectAllItems(){
+        BottomNavigationView bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
+        for(int i=0;i<3;i++){
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,true);
     }
 
 }

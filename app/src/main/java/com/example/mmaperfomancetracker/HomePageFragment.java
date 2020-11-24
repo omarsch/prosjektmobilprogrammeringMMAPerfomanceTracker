@@ -20,12 +20,11 @@ import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import java.util.ArrayList;
 import java.util.Collections;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class HomePageFragment extends Fragment {
 
-    private com.google.android.material.card.MaterialCardView logCard, statsCard, notifCard, mapsCard;
+    private com.google.android.material.card.MaterialCardView logCard, statsCard, timeCard, mapsCard;
     private ProgressBar progressBar1,progressBar2,progressBar3;
     private com.google.android.material.textview.MaterialTextView textViewprogressBar1,textViewprogressBar2,textViewprogressBar3;
     BottomNavigationView bottomNavigationView;
@@ -53,7 +52,7 @@ public class HomePageFragment extends Fragment {
 
         logCard= view.findViewById(R.id.loggCard);
         statsCard= view.findViewById(R.id.statsCard);
-        notifCard= view.findViewById(R.id.notifCard);
+        timeCard= view.findViewById(R.id.timeCard);
         mapsCard= view.findViewById(R.id.mapsCard);
         bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
 
@@ -118,7 +117,7 @@ public class HomePageFragment extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment= new LogPageFragment();
-                replaceFragment(fragment);
+                replaceFragment(fragment,true);
                 unselectAllItems();
             }
         });
@@ -128,17 +127,17 @@ public class HomePageFragment extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment= new StatsPageFragment();
-                replaceFragment(fragment);
+                replaceFragment(fragment,true);
                 unselectAllItems();
             }
         });
 
-        notifCard.setOnClickListener(new View.OnClickListener() {
+        timeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Fragment fragment= new TimerPageFragment();
-                replaceFragment(fragment);
+                replaceFragment(fragment,false);
                 unselectAllItems();
 
             }
@@ -161,12 +160,15 @@ public class HomePageFragment extends Fragment {
     }
 
 
-    public void replaceFragment(Fragment fragment){
+    public void replaceFragment(Fragment fragment, boolean backstack){
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        if(backstack){
+            fragmentTransaction.addToBackStack(null);
+        }
     }
 
     public void unselectAllItems(){

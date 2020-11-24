@@ -16,6 +16,7 @@ import androidx.room.Room;
 import com.example.mmaperfomancetracker.adapters.LogAdapter;
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.Sport;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,11 @@ public class LogPageFragment extends Fragment {
     private ListView listView;
     private com.google.android.material.textview.MaterialTextView noDataMessage;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        unselectAllItems();
+    }
 
     @Nullable
     @Override
@@ -50,6 +56,14 @@ public class LogPageFragment extends Fragment {
 
     }
 
+    public void unselectAllItems(){
+        BottomNavigationView bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
+        for(int i=0;i<3;i++){
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,true);
+    }
 }
 
 

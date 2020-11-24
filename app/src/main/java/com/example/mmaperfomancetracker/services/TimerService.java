@@ -6,21 +6,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.view.View;
-import android.widget.Chronometer;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.mmaperfomancetracker.AddTrainingFragment;
 import com.example.mmaperfomancetracker.MainActivity;
 import com.example.mmaperfomancetracker.R;
-import com.example.mmaperfomancetracker.TimerPageFragment;
-import com.google.android.material.snackbar.Snackbar;
 
 import static com.example.mmaperfomancetracker.App.CHANNEL_ID;
 
@@ -35,10 +27,12 @@ public class TimerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         long pauseOffset= intent.getLongExtra("pauseOffset",0);
 
-        Fragment fragment= new TimerPageFragment();
-        Intent notifIntent= new Intent(this, fragment.getClass());
+
+        Intent notifIntent= new Intent(this, MainActivity.class);
+        notifIntent.putExtra("notification",true);
+        notifIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent= PendingIntent.getActivity(this,
-                0,notifIntent,0);
+                100,notifIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         RemoteViews chronometerView= new RemoteViews(getPackageName(),R.layout.notfication);
         chronometerView.setChronometer(R.id.timerNotification, SystemClock.elapsedRealtime() -
@@ -70,4 +64,5 @@ public class TimerService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 }

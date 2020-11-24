@@ -25,6 +25,7 @@ import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.example.mmaperfomancetracker.services.TimerService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class TimerPageFragment extends Fragment{
     public void onStart() {
         super.onStart();
 
-
+        unselectAllItems();
 
         SharedPreferences pref= this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
 
@@ -73,13 +74,16 @@ public class TimerPageFragment extends Fragment{
             if (running) {
                 timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) - timeAbsent);
                 timer.start();
+                stop.setEnabled(true);
+                start.setEnabled(false);
 
             } else {
                 timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) + timerStoppedDuration);
                 timerStoppedMillis = System.currentTimeMillis();
+                stop.setEnabled(false);
+                start.setEnabled(true);
             }
-            stop.setEnabled(true);
-            start.setEnabled(false);
+
             add.setEnabled(true);
             selectedSport.getEditText().setText(chosenSport);
             selectedTechnique.getEditText().setText(chosenTechnique);
@@ -91,6 +95,7 @@ public class TimerPageFragment extends Fragment{
         }
         else {
             timer.setBase(SystemClock.elapsedRealtime());
+            trainingStatus=false;
         }
 
     }
@@ -273,8 +278,6 @@ public class TimerPageFragment extends Fragment{
                 SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 String dateAndTime= simpleDateFormat.format(calendar.getTime());
 
-
-
                 pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
                 minutes= (int) (pauseOffset/(1000*60))%60;
                 hours= (int) ((pauseOffset / (1000*60*60)) % 24);
@@ -314,7 +317,15 @@ public class TimerPageFragment extends Fragment{
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void unselectAllItems(){
+        BottomNavigationView bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
+        for(int i=0;i<3;i++){
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,true);
     }
 }
