@@ -1,24 +1,14 @@
 package com.example.mmaperfomancetracker;
 
-import android.content.Context;
+
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.mmaperfomancetracker.db.SportDatabase;
-import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 

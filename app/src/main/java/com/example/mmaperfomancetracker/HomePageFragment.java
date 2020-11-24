@@ -2,38 +2,39 @@ package com.example.mmaperfomancetracker;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
-
-
 import com.example.mmaperfomancetracker.comparators.SortByTime;
 import com.example.mmaperfomancetracker.db.SportDatabase;
-import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.example.mmaperfomancetracker.db.tables.StatsLog;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class HomePageFragment extends Fragment {
 
-    private com.google.android.material.card.MaterialCardView logCard, statsCard, notifCard;
+    private com.google.android.material.card.MaterialCardView logCard, statsCard, notifCard, mapsCard;
     private ProgressBar progressBar1,progressBar2,progressBar3;
     private com.google.android.material.textview.MaterialTextView textViewprogressBar1,textViewprogressBar2,textViewprogressBar3;
+    BottomNavigationView bottomNavigationView;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        bottomNavigationView.getMenu().getItem(0).setChecked(true);
+    }
 
     @Nullable
     @Override
@@ -53,6 +54,8 @@ public class HomePageFragment extends Fragment {
         logCard= view.findViewById(R.id.loggCard);
         statsCard= view.findViewById(R.id.statsCard);
         notifCard= view.findViewById(R.id.notifCard);
+        mapsCard= view.findViewById(R.id.mapsCard);
+        bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
 
         progressBar1= view.findViewById(R.id.progressBar1);
         progressBar2= view.findViewById(R.id.progressBar2);
@@ -110,22 +113,13 @@ public class HomePageFragment extends Fragment {
         }
 
 
-
-
-
-
-
-
-
-
-
-
         logCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Fragment fragment= new LogPageFragment();
                 replaceFragment(fragment);
+                unselectAllItems();
             }
         });
 
@@ -135,7 +129,7 @@ public class HomePageFragment extends Fragment {
 
                 Fragment fragment= new StatsPageFragment();
                 replaceFragment(fragment);
-
+                unselectAllItems();
             }
         });
 
@@ -145,6 +139,17 @@ public class HomePageFragment extends Fragment {
 
                 Fragment fragment= new TimerPageFragment();
                 replaceFragment(fragment);
+                unselectAllItems();
+
+            }
+        });
+        mapsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent= new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?daddr=MMA"));
+                startActivity(intent);
 
             }
         });
@@ -162,6 +167,14 @@ public class HomePageFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void unselectAllItems(){
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
+        for(int i=0;i<3;i++){
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+        bottomNavigationView.getMenu().setGroupCheckable(0,true,true);
     }
 
 }
