@@ -2,6 +2,7 @@ package com.example.mmaperfomancetracker.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -60,8 +61,9 @@ public interface SportDao {
     @Query("SELECT * FROM TrainingLog")
     List<TrainingLog> getAllTrainingLogs();
 
-    @Query("DELETE FROM TrainingLog")
-    void deleteFromTrainingLog();
+    @Query("DELETE FROM TrainingLog WHERE LogID= :logID")
+    void deleteThisFromTrainingLog(long logID);
+
 
     @Query("SELECT techniqueName,hours,minutes," +
             "sum(hours) as hours, sum(minutes) as minutes" +

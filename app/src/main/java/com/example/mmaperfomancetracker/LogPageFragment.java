@@ -2,10 +2,12 @@ package com.example.mmaperfomancetracker;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +17,9 @@ import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.adapters.LogAdapter;
 import com.example.mmaperfomancetracker.db.SportDatabase;
-import com.example.mmaperfomancetracker.db.tables.Sport;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LogPageFragment extends Fragment {
 
@@ -33,7 +34,7 @@ public class LogPageFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_logpage,container,false);
         getActivity().setTitle(R.string.logg_button);
 
@@ -47,10 +48,29 @@ public class LogPageFragment extends Fragment {
             noDataMessage.setText("No trainings added");
         }
 
-        LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());
+        final LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());
         listView.setAdapter(adapter);
 
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent= new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("DATE",adapter.getItem(position).dateAndTime);
+                intent.putExtra("TECHNIQUE",adapter.getItem(position).techniqueName);
+                intent.putExtra("HOURS",adapter.getItem(position).hours);
+                intent.putExtra("MINUTES",adapter.getItem(position).minutes);
+                intent.putExtra("LOG_ID",adapter.getItem(position).LogID);
+                intent.putExtra("SPORT",adapter.getItem(position).sportName);
+                intent.putExtra("LOG",true);
+
+                getActivity().startActivity(intent);
+
+
+                return false;
+            }
+        });
 
         return view;
 

@@ -31,10 +31,15 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras= getIntent().getExtras();
         if(extras !=null){
             final boolean fromNotif= extras.getBoolean("notification");
+            final boolean fromLog= extras.getBoolean("LOG");
             if(fromNotif){
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new TimerPageFragment()).commit();
+            }
+            if(fromLog){
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SlectedLogPageFragment()).addToBackStack(null).commit();
             }
         }
     }

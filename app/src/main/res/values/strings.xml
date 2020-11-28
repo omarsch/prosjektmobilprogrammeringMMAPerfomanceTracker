@@ -20,5 +20,7 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
+    <string name="delete">Delete</string>
+    <string name="back">Back</string>
     <string name="database_name">sportLoggerDBv10</string>
 </resources>

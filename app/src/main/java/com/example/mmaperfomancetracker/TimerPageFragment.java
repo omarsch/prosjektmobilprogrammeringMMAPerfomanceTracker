@@ -47,28 +47,6 @@ public class TimerPageFragment extends Fragment{
     private com.google.android.material.textfield.TextInputLayout selectedSport, selectedTechnique;
 
     @Override
-    public void onPause() {
-        super.onPause();
-            appClosedCurrentTime=System.currentTimeMillis();
-            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        appOpenedCurrentTime=System.currentTimeMillis();
-        timeAbsent=appOpenedCurrentTime-appClosedCurrentTime;
-            if(running){
-                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) - timeAbsent);
-            }
-            else {
-                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+2000);
-            }
-
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
 
@@ -100,8 +78,7 @@ public class TimerPageFragment extends Fragment{
                 start.setEnabled(false);
 
             } else {
-                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) + timerStoppedDuration);
-                timerStoppedMillis = System.currentTimeMillis();
+                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
                 stop.setEnabled(false);
                 start.setEnabled(true);
             }
@@ -138,7 +115,6 @@ public class TimerPageFragment extends Fragment{
         }
         else {
             pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-            timerStoppedMillis=System.currentTimeMillis();
         }
 
         appClosedCurrentTime=System.currentTimeMillis();
@@ -233,17 +209,16 @@ public class TimerPageFragment extends Fragment{
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(!running){
 
-
-                    timer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+                    timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
                     timer.start();
                     running= true;
                     trainingStatus=true;
                     stop.setEnabled(true);
                     selectedSport.setEnabled(false);
                     selectedTechnique.setEnabled(false);
-
 
                 }
 
@@ -267,6 +242,7 @@ public class TimerPageFragment extends Fragment{
                     pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
                     running=false;
                     trainingStatus=true;
+                    timerStoppedDuration=0;
                     timerStoppedMillis=System.currentTimeMillis();
                     start.setEnabled(true);
                     stop.setEnabled(false);
@@ -325,6 +301,7 @@ public class TimerPageFragment extends Fragment{
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
