@@ -112,6 +112,7 @@ public class TimerPageFragment extends Fragment{
             timer.stop();
             appClosedCurrentTime=0;
             timerStoppedDuration=0;
+
         }
         else {
             pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
@@ -210,16 +211,31 @@ public class TimerPageFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                if(!running){
+                if(trainingStatus){
+                    if(!running){
 
-                    timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
-                    timer.start();
-                    running= true;
-                    trainingStatus=true;
-                    stop.setEnabled(true);
-                    selectedSport.setEnabled(false);
-                    selectedTechnique.setEnabled(false);
+                        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
+                        timer.start();
+                        running= true;
+                        trainingStatus=true;
+                        stop.setEnabled(true);
+                        selectedSport.setEnabled(false);
+                        selectedTechnique.setEnabled(false);
 
+                    }
+                }
+                else {
+                    if(!running){
+
+                        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset));
+                        timer.start();
+                        running= true;
+                        trainingStatus=true;
+                        stop.setEnabled(true);
+                        selectedSport.setEnabled(false);
+                        selectedTechnique.setEnabled(false);
+
+                    }
                 }
 
 
