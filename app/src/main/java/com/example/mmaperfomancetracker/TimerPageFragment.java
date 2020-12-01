@@ -64,6 +64,8 @@ public class TimerPageFragment extends Fragment{
         timerStoppedDuration=pref.getLong("timerStoppedDuration",0);
         AutoCompleteTextView editTextSportView= getView().findViewById(R.id.filled_exposed_dropdown_technique_timer);
 
+
+
         appOpenedCurrentTime=System.currentTimeMillis();
         timeAbsent=appOpenedCurrentTime-appClosedCurrentTime;
         timerStoppedDuration=appClosedCurrentTime-timerStoppedMillis;
@@ -81,6 +83,7 @@ public class TimerPageFragment extends Fragment{
                 timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
                 stop.setEnabled(false);
                 start.setEnabled(true);
+                timerStoppedMillis=System.currentTimeMillis();
             }
 
             add.setEnabled(true);
@@ -117,6 +120,8 @@ public class TimerPageFragment extends Fragment{
         else {
             pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
         }
+
+
 
         appClosedCurrentTime=System.currentTimeMillis();
 

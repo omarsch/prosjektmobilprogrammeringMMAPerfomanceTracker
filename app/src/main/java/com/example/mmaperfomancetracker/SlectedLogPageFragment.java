@@ -1,5 +1,6 @@
 package com.example.mmaperfomancetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class SlectedLogPageFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_selectedlog,container,false);
 
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
@@ -47,6 +48,7 @@ public class SlectedLogPageFragment extends Fragment {
         hours=extras.getLong("HOURS");
         minutes=extras.getLong("MINUTES");
 
+
         totalDuration=(hours*60)+minutes;
 
         duration.setText(String.valueOf(totalDuration)+ " Minutes");
@@ -55,6 +57,11 @@ public class SlectedLogPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 db.sportDao().deleteThisFromTrainingLog(extras.getLong("LOG_ID"));
+
+                Intent intent= new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("LOG_SELECTED",true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
                 Fragment fragment= new HomePageFragment();
                 replaceFragment(fragment);
             }
@@ -68,7 +75,6 @@ public class SlectedLogPageFragment extends Fragment {
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

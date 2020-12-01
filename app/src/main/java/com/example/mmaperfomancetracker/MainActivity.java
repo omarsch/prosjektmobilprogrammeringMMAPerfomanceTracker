@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         if(extras !=null){
             final boolean fromNotif= extras.getBoolean("notification");
             final boolean fromLog= extras.getBoolean("LOG");
+            final boolean fromLogSelected= extras.getBoolean("LOG_SELECTED");
             if(fromNotif){
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -39,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
             }
             if(fromLog){
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SlectedLogPageFragment()).addToBackStack(null).commit();
+                        new SlectedLogPageFragment()).commit();
+            }
+            if(fromLogSelected){
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new HomePageFragment()).commit();
             }
         }
     }
