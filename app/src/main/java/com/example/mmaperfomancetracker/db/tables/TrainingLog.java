@@ -25,6 +25,14 @@ public class TrainingLog {
         this.dateAndTime = dateAndTime;
     }
 
+    public String getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public long getLogID() {
+        return LogID;
+    }
+
     @Override
     public String toString(){
         return  sportName+" "+techniqueName+" "+hours+" "+minutes + " "+ dateAndTime;

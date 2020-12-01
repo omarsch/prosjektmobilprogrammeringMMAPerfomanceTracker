@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
-import com.example.mmaperfomancetracker.comparators.SortByTime;
+import com.example.mmaperfomancetracker.comparators.SortByMinutes;
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class HomePageFragment extends Fragment {
         final ArrayList<StatsLog> statsLogs=new ArrayList<StatsLog>();
 
         statsLogs.addAll(db.sportDao().sortTechniquesIndividual());
-        Collections.sort(statsLogs, new SortByTime());
+        Collections.sort(statsLogs, new SortByMinutes());
 
         logCard= view.findViewById(R.id.loggCard);
         statsCard= view.findViewById(R.id.statsCard);

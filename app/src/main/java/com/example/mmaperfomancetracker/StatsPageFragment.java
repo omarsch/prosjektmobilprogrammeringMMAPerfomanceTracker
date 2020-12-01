@@ -12,10 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.adapters.StatsAdapter;
-import com.example.mmaperfomancetracker.comparators.SortByTime;
+import com.example.mmaperfomancetracker.comparators.SortByMinutes;
 import com.example.mmaperfomancetracker.db.SportDatabase;
 import com.example.mmaperfomancetracker.db.tables.StatsLog;
-import com.example.mmaperfomancetracker.db.tables.Technique;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class StatsPageFragment extends Fragment {
         final ArrayList<StatsLog> statsLogs=new ArrayList<StatsLog>();
 
         statsLogs.addAll(db.sportDao().sortTechniquesIndividual());
-        Collections.sort(statsLogs, new SortByTime());
+        Collections.sort(statsLogs, new SortByMinutes());
 
         listView= view.findViewById(R.id.statsListView);
         noDataMessage= view.findViewById(R.id.statsTextView);

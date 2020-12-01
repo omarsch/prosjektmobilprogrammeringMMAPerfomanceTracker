@@ -17,9 +17,12 @@ import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.adapters.LogAdapter;
 import com.example.mmaperfomancetracker.db.SportDatabase;
+import com.example.mmaperfomancetracker.db.tables.StatsLog;
+import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class LogPageFragment extends Fragment {
 
@@ -43,13 +46,18 @@ public class LogPageFragment extends Fragment {
 
         listView= view.findViewById(R.id.logListView);
         noDataMessage= view.findViewById(R.id.logTextView);
+        final ArrayList<TrainingLog> trainingLog=new ArrayList<TrainingLog>();
 
         if(db.sportDao().getAllTrainingLogs().isEmpty()){
             noDataMessage.setText("No trainings added");
         }
 
-        final LogAdapter adapter= new LogAdapter(getContext(), db.sportDao().getAllTrainingLogs());
+
+        trainingLog.addAll(db.sportDao().getAllTrainingLogs());
+        Collections.reverse(trainingLog);
+        final LogAdapter adapter= new LogAdapter(getContext(), trainingLog);
         listView.setAdapter(adapter);
+
 
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
