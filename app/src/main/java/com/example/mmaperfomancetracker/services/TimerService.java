@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.mmaperfomancetracker.MainActivity;
 import com.example.mmaperfomancetracker.R;
 
-import static com.example.mmaperfomancetracker.App.CHANNEL_ID;
+import static com.example.mmaperfomancetracker.AppNotification.CHANNEL_ID;
 
 public class TimerService extends Service {
 
