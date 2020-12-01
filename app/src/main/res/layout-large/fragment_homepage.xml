@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
+    app:layout_constraintBottom_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
+        app:layout_constraintBottom_toTopOf="@+id/homeImage"
+        app:layout_constraintStart_toEndOf="@+id/progressBar3"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+
+    <ImageView
+        android:id="@+id/homeImage"
+        android:layout_width="159dp"
+        android:layout_height="138dp"
+        android:contentDescription="@string/home_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar1"
+        app:srcCompat="@drawable/homepage_picture" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/backround_circle"
+        android:progressDrawable="@drawable/progress_circle"
+        app:layout_constraintEnd_toStartOf="@+id/progressBar3"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/loggCard"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/statsCard"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeImage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:contentDescription="@string/logg_button"
+                app:srcCompat="@drawable/library_books_24px"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/loggText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="@string/logg_button"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/textColorPrimary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/statsCard"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/loggCard"
+        app:layout_constraintTop_toBottomOf="@+id/homeImage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:contentDescription="@string/stats_button"
+                app:srcCompat="@drawable/leaderboard_24px"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/statsText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="@string/stats_button"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/textColorPrimary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/timeCard"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mapsCard"
+        app:layout_constraintTop_toBottomOf="@+id/statsCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:contentDescription="@string/timer"
+                app:srcCompat="@drawable/timer_24px"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/notifText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="@string/timer"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/textColorPrimary" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mapsCard"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/timeCard"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loggCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:contentDescription="@string/maps_button"
+                app:srcCompat="@drawable/map_24px"
+                tools:ignore="VectorDrawableCompat" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/textColorPrimary"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/mapsText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="@string/maps_button"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/textColorPrimary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar1"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar1"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar1"
+        app:layout_constraintStart_toStartOf="@+id/progressBar1"
+        app:layout_constraintTop_toTopOf="@+id/progressBar1" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar3"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar3"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar3"
+        app:layout_constraintStart_toStartOf="@+id/progressBar3"
+        app:layout_constraintTop_toTopOf="@+id/progressBar3" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewProgressBar2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar2"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/progressBar2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
