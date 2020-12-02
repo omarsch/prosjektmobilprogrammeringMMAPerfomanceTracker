@@ -106,20 +106,6 @@ public class TimerPageFragment extends Fragment{
     public void onStop() {
         super.onStop();
 
-        if(!trainingStatus){
-
-            pauseOffset=0;
-            timeAbsent=0;
-            running=false;
-            timer.setBase(SystemClock.elapsedRealtime());
-            timer.stop();
-            appClosedCurrentTime=0;
-            timerStoppedDuration=0;
-
-        }
-        else {
-            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-        }
 
 
 
@@ -137,6 +123,23 @@ public class TimerPageFragment extends Fragment{
         editor.putLong("appClosedCurrentTime",appClosedCurrentTime);
         editor.putLong("timerStoppedMillis",timerStoppedMillis);
         editor.putLong("timerStoppedDuration",timerStoppedDuration);
+
+        if(!trainingStatus){
+
+            pauseOffset=0;
+            timeAbsent=0;
+            running=false;
+            timer.setBase(SystemClock.elapsedRealtime());
+            timer.stop();
+            appClosedCurrentTime=0;
+            timerStoppedDuration=0;
+            editor.clear();
+
+        }
+        else {
+            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+        }
+
 
         editor.apply();
 
