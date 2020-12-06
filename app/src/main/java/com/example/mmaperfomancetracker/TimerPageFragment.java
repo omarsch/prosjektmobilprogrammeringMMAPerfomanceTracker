@@ -322,7 +322,6 @@ public class TimerPageFragment extends Fragment{
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
