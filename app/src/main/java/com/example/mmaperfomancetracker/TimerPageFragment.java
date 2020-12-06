@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Chronometer;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +36,7 @@ public class TimerPageFragment extends Fragment{
 
     private Chronometer timer;
     private boolean running, trainingStatus;
-    private long pauseOffset,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
+    private long pausedTime,timeAbsent,appClosedCurrentTime,appOpenedCurrentTime;
     private long timerStoppedMillis, timerStoppedDuration;
     private int hours=0,minutes=0;
     private String chosenSport,chosenTechnique;
@@ -58,7 +56,7 @@ public class TimerPageFragment extends Fragment{
         trainingStatus= pref.getBoolean("trainingStatus",false);
         chosenSport=pref.getString("chosenSport",null);
         chosenTechnique=pref.getString("chosenTechnique",null);
-        pauseOffset=pref.getLong("pauseOffset",0);
+        pausedTime =pref.getLong("pauseOffset",0);
         appClosedCurrentTime=pref.getLong("appClosedCurrentTime",0);
         timerStoppedMillis=pref.getLong("timerStoppedMillis",0);
         timerStoppedDuration=pref.getLong("timerStoppedDuration",0);
@@ -74,13 +72,13 @@ public class TimerPageFragment extends Fragment{
 
         if(trainingStatus) {
             if (running) {
-                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset) - timeAbsent);
+                timer.setBase((SystemClock.elapsedRealtime() - pausedTime) - timeAbsent);
                 timer.start();
                 stop.setEnabled(true);
                 start.setEnabled(false);
 
             } else {
-                timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
+                timer.setBase((SystemClock.elapsedRealtime() - pausedTime)+timerStoppedDuration);
                 stop.setEnabled(false);
                 start.setEnabled(true);
                 timerStoppedMillis=System.currentTimeMillis();
@@ -108,7 +106,7 @@ public class TimerPageFragment extends Fragment{
 
         if(!trainingStatus){
 
-            pauseOffset=0;
+            pausedTime =0;
             timeAbsent=0;
             running=false;
             timer.setBase(SystemClock.elapsedRealtime());
@@ -118,7 +116,7 @@ public class TimerPageFragment extends Fragment{
 
         }
         else {
-            pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+            pausedTime =SystemClock.elapsedRealtime()-timer.getBase();
         }
 
 
@@ -133,7 +131,7 @@ public class TimerPageFragment extends Fragment{
         editor.putBoolean("trainingStatus",trainingStatus);
         editor.putString("chosenSport",chosenSport);
         editor.putString("chosenTechnique",chosenTechnique);
-        editor.putLong("pauseOffset",pauseOffset);
+        editor.putLong("pauseOffset", pausedTime);
         editor.putLong("appClosedCurrentTime",appClosedCurrentTime);
         editor.putLong("timerStoppedMillis",timerStoppedMillis);
         editor.putLong("timerStoppedDuration",timerStoppedDuration);
@@ -219,7 +217,7 @@ public class TimerPageFragment extends Fragment{
                 if(trainingStatus){
                     if(!running){
 
-                        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset)+timerStoppedDuration);
+                        timer.setBase((SystemClock.elapsedRealtime() - pausedTime)+timerStoppedDuration);
                         timer.start();
                         running= true;
                         trainingStatus=true;
@@ -232,7 +230,7 @@ public class TimerPageFragment extends Fragment{
                 else {
                     if(!running){
 
-                        timer.setBase((SystemClock.elapsedRealtime() - pauseOffset));
+                        timer.setBase((SystemClock.elapsedRealtime() - pausedTime));
                         timer.start();
                         running= true;
                         trainingStatus=true;
@@ -246,7 +244,7 @@ public class TimerPageFragment extends Fragment{
 
                 start.setEnabled(false);
                 Intent serviceIntent= new Intent(getContext(),TimerService.class);
-                serviceIntent.putExtra("pauseOffset", pauseOffset);
+                serviceIntent.putExtra("pauseOffset", pausedTime);
                 getActivity().startService(serviceIntent);
 
                 chosenSport= selectedSport.getEditText().getText().toString();
@@ -260,7 +258,7 @@ public class TimerPageFragment extends Fragment{
             public void onClick(View v) {
                 if(running){
                     timer.stop();
-                    pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
+                    pausedTime =SystemClock.elapsedRealtime()-timer.getBase();
                     running=false;
                     trainingStatus=true;
                     timerStoppedDuration=0;
@@ -282,9 +280,9 @@ public class TimerPageFragment extends Fragment{
                 SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                 String dateAndTime= simpleDateFormat.format(calendar.getTime());
 
-                pauseOffset=SystemClock.elapsedRealtime()-timer.getBase();
-                minutes= (int) (pauseOffset/(1000*60))%60;
-                hours= (int) ((pauseOffset / (1000*60*60)) % 24);
+                pausedTime =SystemClock.elapsedRealtime()-timer.getBase();
+                minutes= (int) (pausedTime /(1000*60))%60;
+                hours= (int) ((pausedTime / (1000*60*60)) % 24);
 
                 if(minutes==0&&hours==0){
                     minutes=1;

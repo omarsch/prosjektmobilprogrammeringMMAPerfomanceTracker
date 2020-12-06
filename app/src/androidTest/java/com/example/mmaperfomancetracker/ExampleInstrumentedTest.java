@@ -27,12 +27,5 @@ public class ExampleInstrumentedTest {
         AddTrainingFragment addTrainingFragment= new AddTrainingFragment();
         assertEquals("com.example.mmaperfomancetracker", appContext.getPackageName());
 
-        TrainingLog trainingLog= new TrainingLog("Kcikboxing","Frontkick",
-                0,0,"test date");
-
-        AddTrainingFragment addTrainingFragment1 = new AddTrainingFragment();
-
-        addTrainingFragment.checkTimeInput();
-
     }
 }
