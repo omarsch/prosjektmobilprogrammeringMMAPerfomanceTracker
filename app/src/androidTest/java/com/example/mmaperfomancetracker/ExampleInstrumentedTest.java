@@ -2,8 +2,11 @@ package com.example.mmaperfomancetracker;
 
 import android.content.Context;
 
+import androidx.fragment.app.Fragment;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +24,15 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        AddTrainingFragment addTrainingFragment= new AddTrainingFragment();
         assertEquals("com.example.mmaperfomancetracker", appContext.getPackageName());
+
+        TrainingLog trainingLog= new TrainingLog("Kcikboxing","Frontkick",
+                0,0,"test date");
+
+        AddTrainingFragment addTrainingFragment1 = new AddTrainingFragment();
+
+        addTrainingFragment.checkTimeInput();
+
     }
 }

@@ -133,21 +133,9 @@ public class AddTrainingFragment extends Fragment {
                 String selectedSportString=selectedSport.getEditText().getText().toString();
                 String selectedTechniqueString=selectedTechnique.getEditText().getText().toString();
 
-                if(hours.getEditText().getText().toString().isEmpty()&&
-                        minutes.getEditText().getText().toString().isEmpty()){
-
-                    minutes.getEditText().setText("0");
-                    hours.getEditText().setText("0");
-
-                }
-                else if(hours.getEditText().getText().toString().isEmpty()){
-                    hours.getEditText().setText("0");
-                }
-                else if(minutes.getEditText().getText().toString().isEmpty()){
-                    minutes.getEditText().setText("0");
-                }
 
 
+                checkTimeInput();
 
 
 
@@ -211,8 +199,23 @@ public class AddTrainingFragment extends Fragment {
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void checkTimeInput(){
+        if(hours.getEditText().getText().toString().isEmpty()&&
+                minutes.getEditText().getText().toString().isEmpty()){
+
+            minutes.getEditText().setText("0");
+            hours.getEditText().setText("0");
+
+        }
+        else if(hours.getEditText().getText().toString().isEmpty()){
+            hours.getEditText().setText("0");
+        }
+        else if(minutes.getEditText().getText().toString().isEmpty()){
+            minutes.getEditText().setText("0");
+        }
     }
 
 
