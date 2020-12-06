@@ -117,7 +117,7 @@ public class HomePageFragment extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment= new LogPageFragment();
-                replaceFragment(fragment,false);
+                replaceFragment(fragment,true);
                 unselectAllItems();
             }
         });
@@ -127,7 +127,7 @@ public class HomePageFragment extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment= new StatsPageFragment();
-                replaceFragment(fragment,false);
+                replaceFragment(fragment,true);
                 unselectAllItems();
             }
         });
