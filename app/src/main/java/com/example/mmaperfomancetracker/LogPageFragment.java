@@ -17,7 +17,6 @@ import androidx.room.Room;
 
 import com.example.mmaperfomancetracker.adapters.LogAdapter;
 import com.example.mmaperfomancetracker.db.SportDatabase;
-import com.example.mmaperfomancetracker.db.tables.StatsLog;
 import com.example.mmaperfomancetracker.db.tables.TrainingLog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,7 +25,7 @@ import java.util.Collections;
 
 public class LogPageFragment extends Fragment {
 
-    private ListView listView;
+    private ListView logListView;
     private com.google.android.material.textview.MaterialTextView noDataMessage;
 
     @Override
@@ -41,26 +40,33 @@ public class LogPageFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_logpage,container,false);
         getActivity().setTitle(R.string.logg_button);
 
-
+        //Building database
         SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
-        listView= view.findViewById(R.id.logListView);
+        //Initializing variables
+        logListView = view.findViewById(R.id.logListView);
         noDataMessage= view.findViewById(R.id.logTextView);
+        //Creating an arraylist to contain all training logs from database
         final ArrayList<TrainingLog> trainingLog=new ArrayList<TrainingLog>();
 
+        //Check if the training log database i empty
         if(db.sportDao().getAllTrainingLogs().isEmpty()){
             noDataMessage.setText("No trainings added");
         }
 
-
+        //Add all data from traininglog database into the the trainingLog arraylist
         trainingLog.addAll(db.sportDao().getAllTrainingLogs());
+        //Reverse data to show the last added log on top
         Collections.reverse(trainingLog);
+
+        //Create an adapter for listView
         final LogAdapter adapter= new LogAdapter(getContext(), trainingLog);
-        listView.setAdapter(adapter);
+        logListView.setAdapter(adapter);
 
 
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        //If one item in the list view is clicked for long time. Send the data of that item to an
+        //intent and redirect the user to SelectedLogPage fragment
+        logListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -71,6 +77,8 @@ public class LogPageFragment extends Fragment {
                 intent.putExtra("MINUTES",adapter.getItem(position).minutes);
                 intent.putExtra("LOG_ID",adapter.getItem(position).LogID);
                 intent.putExtra("SPORT",adapter.getItem(position).sportName);
+                //Telling the main activity that the intent is coming from the LogPage. So the activity
+                //can change the fragment to SelectedLogPage fragment
                 intent.putExtra("LOG",true);
 
                 getActivity().startActivity(intent);
@@ -84,6 +92,7 @@ public class LogPageFragment extends Fragment {
 
     }
 
+    //Method for unselecting items from bottom navigation
     public void unselectAllItems(){
         BottomNavigationView bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().setGroupCheckable(0,true,false);

@@ -41,15 +41,18 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
         getActivity().setTitle(R.string.home_button);
 
-
+        //Building the database
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class,  String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
-
+        //Creating an arrayList to for stats
         final ArrayList<StatsLog> statsLogs=new ArrayList<StatsLog>();
 
+        //Adding all stats from the database into the statsLog arrayList
         statsLogs.addAll(db.sportDao().sortTechniquesIndividual());
+        //Sorting it to decreasing by minutes
         Collections.sort(statsLogs, new SortByMinutes());
 
+        //Initiating variables
         logCard= view.findViewById(R.id.loggCard);
         statsCard= view.findViewById(R.id.statsCard);
         timeCard= view.findViewById(R.id.timeCard);
@@ -70,23 +73,24 @@ public class HomePageFragment extends Fragment {
             totalMinutesOfAll +=  statsLogs.get(i).getTotalMinutes();
         }
 
-
+        //If there is no data in stats database
         if(statsLogs.isEmpty()){
-
+            //Tell user there is no data
             textViewprogressBar1.setText("No data");
             textViewprogressBar2.setText("No data");
             textViewprogressBar3.setText("No data");
         }
-
+        //If there is one data in stats database
         else if(statsLogs.size()==1){
+            //Display the one data on the progressbar
             double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
-
             progressBar3.setProgress((int) progressOnBar3);
-
             textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
 
         }
+        //if there is 2 data in the database
         else if(statsLogs.size()==2){
+            //Display the 2 data in the database
             double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
             double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
 
@@ -97,6 +101,7 @@ public class HomePageFragment extends Fragment {
             textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
 
         }
+        //If there is more than 2 data in the database show the top 3 data in the database
         else {
             double progressOnBar3= Math.round(((double)statsLogs.get(0).getTotalMinutes()/(double)totalMinutesOfAll)*100);
             double progressOnBar2= Math.round(((double)statsLogs.get(1).getTotalMinutes()/(double)totalMinutesOfAll)*100);
@@ -111,7 +116,7 @@ public class HomePageFragment extends Fragment {
             textViewprogressBar3.setText(String.valueOf(statsLogs.get(0).techniqueName));
         }
 
-
+        //Changing fragments
         logCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +126,7 @@ public class HomePageFragment extends Fragment {
                 unselectAllItems();
             }
         });
-
+        //Changing fragments
         statsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +136,7 @@ public class HomePageFragment extends Fragment {
                 unselectAllItems();
             }
         });
-
+        //Changing fragments
         timeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +147,7 @@ public class HomePageFragment extends Fragment {
 
             }
         });
+        //Redirecting to google maps
         mapsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +165,7 @@ public class HomePageFragment extends Fragment {
 
     }
 
-
+    //Method to replace fragments
     public void replaceFragment(Fragment fragment, boolean backstack){
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
@@ -171,6 +177,7 @@ public class HomePageFragment extends Fragment {
         }
     }
 
+    //Method to unselect items from bottom navigation
     public void unselectAllItems(){
         bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
         for(int i=0;i<3;i++){

@@ -32,27 +32,31 @@ public class SlectedLogPageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_selectedlog,container,false);
-
+        getActivity().setTitle(R.string.logg_button);
+        //Building database
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
-
+        //Initializing variables
         date= view.findViewById(R.id.selectedLogDate);
         name= view.findViewById(R.id.selectedLogSportAndTechnique);
         duration= view.findViewById(R.id.selectedLogTime);
         delete= view.findViewById(R.id.deleteLog);
+        back=view.findViewById(R.id.backToLog);
 
         final Bundle extras= getActivity().getIntent().getExtras();
 
+        //Getting values from selected item from LogPageFragment
         date.setText(extras.getString("DATE"));
         name.setText(extras.getString("TECHNIQUE"));
         hours=extras.getLong("HOURS");
         minutes=extras.getLong("MINUTES");
 
-
+        //Showing added data to the user
         totalDuration=(hours*60)+minutes;
 
         duration.setText(String.valueOf(totalDuration)+ " Minutes");
 
+        //If user wants to delete the selected data from LogPage delete it
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +66,18 @@ public class SlectedLogPageFragment extends Fragment {
                 intent.putExtra("LOG_SELECTED",true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().startActivity(intent);
-                Fragment fragment= new HomePageFragment();
-                replaceFragment(fragment);
+
+            }
+        });
+
+        //If the user wants to go back to LogPage redirect here
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("LOG_SELECTED_BACK",true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -71,6 +85,7 @@ public class SlectedLogPageFragment extends Fragment {
         return view;
     }
 
+    //Method to replace fragment
     public void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();

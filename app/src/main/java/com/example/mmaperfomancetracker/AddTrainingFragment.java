@@ -57,42 +57,42 @@ public class AddTrainingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_addtraining, container, false);
         getActivity().setTitle(R.string.add_button);
 
-
+        // Creating array to contain techniques
         final ArrayList<Technique> techniqueArrayList=new ArrayList<Technique>();
 
+        //Building database
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
+        //If the database is empty, populate preset data
         if(db.sportDao().getAllSports().isEmpty()&&db.sportDao().getAllTechniques().isEmpty()){
             db.sportDao().addAllSports(Sport.populateData());
             db.sportDao().addAllTechniques(Technique.populateData());
         }
 
 
+        //Adapter for sport dropdown menu
         final AutoCompleteTextView editTextSport= view.findViewById(R.id.filled_exposed_dropdown_sport);
         final ArrayAdapter<Sport> adapterSport= new ArrayAdapter<Sport>(getContext(), android.R.layout.simple_list_item_1, db.sportDao().getAllSports());
         editTextSport.setAdapter(adapterSport);
 
-
+        //Adapter for technique dropdown menu
         final AutoCompleteTextView editTextTechnique= view.findViewById(R.id.filled_exposed_dropdown_technique);
         ArrayAdapter<Technique> adapterTechnique= new ArrayAdapter<Technique>(getContext(), android.R.layout.simple_list_item_1, techniqueArrayList);
         editTextTechnique.setAdapter(adapterTechnique);
 
 
-
+        //Initializing variables
         techniqueText= view.findViewById(R.id.choseTechnique);
         selectedSport = view.findViewById(R.id.textInputLayout);
         selectedTechnique= view.findViewById(R.id.selectedTechnique);
-
         durationText= view.findViewById(R.id.durationText);
         hours=view.findViewById(R.id.hours);
         minutes=view.findViewById(R.id.minutes);
-
         addTrainingBtn= view.findViewById(R.id.addTraining);
-
         showAddedTraining= view.findViewById(R.id.showAddedTraining);
 
 
-
+        //Sport dropdown pressed on action
         editTextSport.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -113,6 +113,8 @@ public class AddTrainingFragment extends Fragment {
             }
         });
 
+
+        //Technique dropdown pressed action
         editTextTechnique.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -126,6 +128,7 @@ public class AddTrainingFragment extends Fragment {
             }
         });
 
+        //Add training button
         addTrainingBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -138,19 +141,20 @@ public class AddTrainingFragment extends Fragment {
                 checkTimeInput();
 
 
-
+                //Creating an array to check against the sport selected in the following if statement
                 ArrayList<String> techniqueArrayListString=new ArrayList<String>();
-
                 for(int i=0;i<techniqueArrayList.size();i++){
                     techniqueArrayListString.add(techniqueArrayList.get(i).toString());
                 }
 
+                //Check if the sport contains the technique selected
                 if(!techniqueArrayListString.contains(selectedTechniqueString)){
                     Snackbar mySnackbar = Snackbar.make(v,R.string.error_add_technique
                             ,
                             3000);
                     mySnackbar.show();
                 }
+                //Check if user has typed in duration for sport.
                 else if(hours.getEditText().getText().toString().equals("0") && minutes.getEditText().getText().toString().equals("0")){
 
                     Snackbar mySnackbar = Snackbar.make(v,R.string.error_add_time
@@ -159,15 +163,14 @@ public class AddTrainingFragment extends Fragment {
                     mySnackbar.show();
                 }
                 else {
-
+                            //Getting values for TrainingLog object
                             long selectedTimeHours= Integer.valueOf(hours.getEditText().getText().toString());
                             long selectedTimeMinutes= Integer.valueOf(minutes.getEditText().getText().toString());
-
                             Calendar calendar= Calendar.getInstance();
                             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy HH:mm");
                             String dateAndTime= simpleDateFormat.format(calendar.getTime());
                             TrainingLog trainingLog=new TrainingLog(selectedSportString,selectedTechniqueString,selectedTimeHours, selectedTimeMinutes, dateAndTime);
-
+                            //Adding the TrainingLog object to the database
                             db.sportDao().addLog(trainingLog);
 
                     Snackbar mySnackbar = Snackbar.make(v,"You have added your training"
@@ -177,6 +180,7 @@ public class AddTrainingFragment extends Fragment {
 
                     hideKeyboard(view);
 
+                    //Redirecting the user to home page
                     Fragment fragment= new HomePageFragment();
                     replaceFragment(fragment);
 

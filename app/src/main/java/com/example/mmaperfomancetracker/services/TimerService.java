@@ -25,19 +25,25 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        long pauseOffset= intent.getLongExtra("pauseOffset",0);
+        //Get pause offset from timer fragment
+        long timePausedOffset= intent.getLongExtra("pauseOffset",0);
 
-
+        //Go to main activity when the notification is pressed
         Intent notifIntent= new Intent(this, MainActivity.class);
+        //Tell hte main activity that user is coming from foreground notification
         notifIntent.putExtra("notification",true);
+        //Adding new task flag to notification intent
         notifIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Creating a pending intent
         PendingIntent pendingIntent= PendingIntent.getActivity(this,
                 100,notifIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        //Setting a custom foreground notification
         RemoteViews chronometerView= new RemoteViews(getPackageName(),R.layout.notfication);
         chronometerView.setChronometer(R.id.timerNotification, SystemClock.elapsedRealtime() -
-                pauseOffset,null,true);
+                timePausedOffset,null,true);
 
+        //Creating the notification
         Notification notification= new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.timer_24px)
                 .setContentIntent(pendingIntent)

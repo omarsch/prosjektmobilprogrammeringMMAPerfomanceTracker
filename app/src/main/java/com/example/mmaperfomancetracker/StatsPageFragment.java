@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class StatsPageFragment extends Fragment {
-    private  ListView listView;
+    private  ListView statsListView;
     private com.google.android.material.textview.MaterialTextView noDataMessage;
 
     @Override
@@ -35,29 +35,36 @@ public class StatsPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_statspage,container,false);
         getActivity().setTitle(R.string.stats_button);
+        //Building database
         final SportDatabase db = Room.databaseBuilder(getActivity(), SportDatabase.class, String.valueOf(R.string.database_name)).allowMainThreadQueries().build();
 
+        //Creating arraylist to containt stats
         final ArrayList<StatsLog> statsLogs=new ArrayList<StatsLog>();
 
+        //Adding all stats from statsdatabse
         statsLogs.addAll(db.sportDao().sortTechniquesIndividual());
+        //Sorting it by decreasing by minutes
         Collections.sort(statsLogs, new SortByMinutes());
 
-        listView= view.findViewById(R.id.statsListView);
+        //Initializing variables
+        statsListView = view.findViewById(R.id.statsListView);
         noDataMessage= view.findViewById(R.id.statsTextView);
 
+        //Show message if there is no data in the database
         if(statsLogs.isEmpty()){
             noDataMessage.setText("No trainings added");
         }
 
-
+        //Add all data to statsListView via an adapter
         StatsAdapter adapter= new StatsAdapter(getContext(),statsLogs);
-        listView.setAdapter(adapter);
+        statsListView.setAdapter(adapter);
 
 
 
         return view;
     }
 
+    //Unselect all items from bottom navigation.
     public void unselectAllItems(){
         BottomNavigationView bottomNavigationView=getActivity().findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().setGroupCheckable(0,true,false);
